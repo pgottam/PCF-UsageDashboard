@@ -1,0 +1,89 @@
+<div class='card'>
+  <div class='card-header'>
+    {{pageTitle}}
+  </div>
+  <div class='table-responsive'>
+    <table class='table' *ngIf='foundations && foundations.length'>
+      <tbody>
+        <tr>
+          <td></td>
+          <td *ngIf='prodAIAvg'>
+            <i class="fa fa-code fa-5x" aria-hidden="true"></i>
+            Total AI's in Production: {{ prodAIAvg }}
+          </td>
+          <td *ngIf='prodSIAvg'>
+            <i class="fa fa-code fa-5x" aria-hidden="true"></i>
+            Total SI's in Production: {{ prodSIAvg }}
+          </td>
+          <td *ngIf='allAIAvg'>
+            <i class="fa fa-code fa-5x" aria-hidden="true"></i>
+            Total AI's: {{ allAIAvg }}
+          </td>
+          <td *ngIf='allSIAvg'>
+            <i class="fa fa-code fa-5x" aria-hidden="true"></i>
+            Total SI's: {{ allSIAvg }}
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <!--<i class="fa fa-snowflake-o fa-5x" aria-hidden="true"></i>
+            NewRelic Apps: 20 -->
+          </td>
+          <td *ngIf='userCount'>
+            <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+            Total Users: {{ userCount }}
+          </td>
+          <td *ngIf='orgCount'>
+            <i class="fa fa-star fa-5x" aria-hidden="true"></i>
+            Total Orgs: {{ orgCount }}
+          </td>
+          <td *ngIf='spaceCount'>
+            <i class="fa fa-globe fa-5x" aria-hidden="true"></i>
+            Total Spaces: {{ spaceCount }}
+          </td>
+        </tr>
+        <tr style="border-bottom:2px solid blue">
+          <td colspan="100%"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='card-body'>
+    <div class='col-md-2'>Filter by:</div>
+    <div class='col-md-4'>
+      <input type='text' [(ngModel)]='listFilter' />
+    </div>
+  </div>
+  <div class='table-responsive'>
+    <table class='table'>
+      <thead>
+        <tr *ngIf="currentYear">
+          <th></th>
+          <th>Foundation Name</th>
+          <th>Q1 {{ currentYear }}</th>
+          <th>Q2 {{ currentYear }}</th>
+          <th>Q3 {{ currentYear }}</th>
+          <th>Q4 {{ currentYear }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let usage of allUsage'>
+          <td></td>
+          <td><a class='nav-link' [routerLink]="['/orgs']">{{ usage.name }}</a></td>
+          <!-- remove link for each org...default to upper menu links for "Home" "Orgs" "Spaces" and "Apps" for now -->
+          <td>AIs: {{ usage.Q1.AIs }}<br>SIs: {{ usage.Q1.SIs }} </td>
+          <!--<td>{{ org.name | lowercase | convertToSpaces: '-' }}</td> -->
+          <td>AIs: {{ usage.Q2.AIs }}<br>SIs: {{ usage.Q2.SIs }} </td>
+          <!--<td>{{ org.price | currency:'USD':'symbol':'1.2-2' }}</td>-->
+          <td>AIs: {{ usage.Q3.AIs }}<br>SIs: {{ usage.Q3.SIs }}</td>
+          <td>AIs: {{ usage.Q4.AIs }}<br>SIs: {{ usage.Q4.SIs }}</td>
+          <td>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>

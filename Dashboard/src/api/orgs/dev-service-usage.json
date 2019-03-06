@@ -1,0 +1,314 @@
+{
+  "report_time": "2019-02-04 20:12:30 UTC",
+  "monthly_service_reports": [{
+    "service_name": "p-service-registry",
+    "service_guid": "cf284630-ad7d-47d1-9d52-d2f89cc1608d",
+    "usages": [{
+      "month": 1,
+      "year": 2019,
+      "duration_in_hours": 12.8003,
+      "average_instances": 0.0,
+      "maximum_instances": 1
+    }, {
+      "month": 2,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 0.0,
+      "maximum_instances": 0
+    }],
+    "plans": [{
+      "usages": [{
+        "month": 1,
+        "year": 2019,
+        "duration_in_hours": 12.8003,
+        "average_instances": 0.0,
+        "maximum_instances": 1
+      }, {
+        "month": 2,
+        "year": 2019,
+        "duration_in_hours": 0.0,
+        "average_instances": 0.0,
+        "maximum_instances": 0
+      }],
+      "service_plan_name": "standard",
+      "service_plan_guid": "05d23b5c-14b0-417c-9114-a0fde57aacbb"
+    }]
+  }, {
+    "service_name": "p-circuit-breaker-dashboard",
+    "service_guid": "ea044927-6f64-461a-8689-c9dc5bf25746",
+    "usages": [{
+      "month": 1,
+      "year": 2019,
+      "duration_in_hours": 0.0305556,
+      "average_instances": 0.0,
+      "maximum_instances": 1
+    }, {
+      "month": 2,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 0.0,
+      "maximum_instances": 0
+    }],
+    "plans": [{
+      "usages": [{
+        "month": 1,
+        "year": 2019,
+        "duration_in_hours": 0.0305556,
+        "average_instances": 0.0,
+        "maximum_instances": 1
+      }, {
+        "month": 2,
+        "year": 2019,
+        "duration_in_hours": 0.0,
+        "average_instances": 0.0,
+        "maximum_instances": 0
+      }],
+      "service_plan_name": "standard",
+      "service_plan_guid": "62c91a4f-a4f3-4b5c-84da-b3cd2b355298"
+    }]
+  }, {
+    "service_name": "p-config-server",
+    "service_guid": "a89a5722-48c9-4627-906f-189388ff2439",
+    "usages": [{
+      "month": 1,
+      "year": 2019,
+      "duration_in_hours": 12.7889,
+      "average_instances": 0.0,
+      "maximum_instances": 1
+    }, {
+      "month": 2,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 0.0,
+      "maximum_instances": 0
+    }],
+    "plans": [{
+      "usages": [{
+        "month": 1,
+        "year": 2019,
+        "duration_in_hours": 12.7889,
+        "average_instances": 0.0,
+        "maximum_instances": 1
+      }, {
+        "month": 2,
+        "year": 2019,
+        "duration_in_hours": 0.0,
+        "average_instances": 0.0,
+        "maximum_instances": 0
+      }],
+      "service_plan_name": "standard",
+      "service_plan_guid": "7d2569e1-ec1a-4227-b5b6-62c48bc6c625"
+    }]
+  }, {
+    "service_name": "p-redis",
+    "service_guid": "f9130a6b-7024-40ee-b586-03ed6328ad48",
+    "usages": [{
+      "month": 1,
+      "year": 2019,
+      "duration_in_hours": 679.353,
+      "average_instances": 4.5,
+      "maximum_instances": 1
+    }, {
+      "month": 2,
+      "year": 2019,
+      "duration_in_hours": 92.20844166666667,
+      "average_instances": 12.0,
+      "maximum_instances": 1
+    },
+    {
+      "month": 7,
+      "year": 2019,
+      "duration_in_hours": 92.20844166666667,
+      "average_instances": 28,
+      "maximum_instances": 1
+    }],
+    "plans": [{
+      "usages": [{
+        "month": 1,
+        "year": 2019,
+        "duration_in_hours": 679.353,
+        "average_instances": 0.9,
+        "maximum_instances": 1
+      }, {
+        "month": 2,
+        "year": 2019,
+        "duration_in_hours": 92.20844166666667,
+        "average_instances": 1.0,
+        "maximum_instances": 1
+      }],
+      "service_plan_name": "standard",
+      "service_plan_guid": "84d94285-e887-493e-a6ea-3d173635472c"
+    }]
+  }, {
+    "service_name": "p.mysql",
+    "service_guid": "0f67aab7-1e33-4cfa-8e13-f60c61f6543a",
+    "usages": [{
+      "month": 1,
+      "year": 2019,
+      "duration_in_hours": 71.1567,
+      "average_instances": 10.25,
+      "maximum_instances": 1
+    }, {
+      "month": 2,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 18,
+      "maximum_instances": 0
+    },
+    {
+      "month": 7,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 29,
+      "maximum_instances": 0
+    }],
+    "plans": [{
+      "usages": [{
+        "month": 1,
+        "year": 2019,
+        "duration_in_hours": 71.1567,
+        "average_instances": 0.1,
+        "maximum_instances": 1
+      }, {
+        "month": 2,
+        "year": 2019,
+        "duration_in_hours": 0.0,
+        "average_instances": 0.0,
+        "maximum_instances": 0
+      }],
+      "service_plan_name": "db-small",
+      "service_plan_guid": "7ff79b92-12ec-4592-8781-c2197670984c"
+    }]
+  }, {
+    "service_name": "p-rabbitmq",
+    "service_guid": "049e4b45-edfa-40f8-8cb7-933799604544",
+    "usages": [{
+      "month": 1,
+      "year": 2019,
+      "duration_in_hours": 0.0736111,
+      "average_instances": 20.75,
+      "maximum_instances": 1
+    }, {
+      "month": 2,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 25,
+      "maximum_instances": 0
+    },
+    {
+      "month": 7,
+      "year": 2019,
+      "duration_in_hours": 0.0,
+      "average_instances": 78,
+      "maximum_instances": 0
+    }],
+    "plans": [{
+      "usages": [{
+        "month": 1,
+        "year": 2019,
+        "duration_in_hours": 0.0736111,
+        "average_instances": 0.0,
+        "maximum_instances": 1
+      }, {
+        "month": 2,
+        "year": 2019,
+        "duration_in_hours": 0.0,
+        "average_instances": 0.0,
+        "maximum_instances": 0
+      }],
+      "service_plan_name": "standard",
+      "service_plan_guid": "633b2fd9-8ffa-4457-9de3-9aec5b716178"
+    }]
+  }],
+  "yearly_service_report": [{
+    "service_name": "p-service-registry",
+    "service_guid": "cf284630-ad7d-47d1-9d52-d2f89cc1608d",
+    "year": 2019,
+    "duration_in_hours": 12.8003,
+    "maximum_instances": 1,
+    "average_instances": 0.0,
+    "plans": [{
+      "service_plan_name": "standard",
+      "service_plan_guid": "05d23b5c-14b0-417c-9114-a0fde57aacbb",
+      "year": 2019,
+      "duration_in_hours": 12.8003,
+      "maximum_instances": 1,
+      "average_instances": 0.0
+    }]
+  }, {
+    "service_name": "p-circuit-breaker-dashboard",
+    "service_guid": "ea044927-6f64-461a-8689-c9dc5bf25746",
+    "year": 2019,
+    "duration_in_hours": 0.0305556,
+    "maximum_instances": 1,
+    "average_instances": 0.0,
+    "plans": [{
+      "service_plan_name": "standard",
+      "service_plan_guid": "62c91a4f-a4f3-4b5c-84da-b3cd2b355298",
+      "year": 2019,
+      "duration_in_hours": 0.0305556,
+      "maximum_instances": 1,
+      "average_instances": 0.0
+    }]
+  }, {
+    "service_name": "p-config-server",
+    "service_guid": "a89a5722-48c9-4627-906f-189388ff2439",
+    "year": 2019,
+    "duration_in_hours": 12.7889,
+    "maximum_instances": 1,
+    "average_instances": 0.0,
+    "plans": [{
+      "service_plan_name": "standard",
+      "service_plan_guid": "7d2569e1-ec1a-4227-b5b6-62c48bc6c625",
+      "year": 2019,
+      "duration_in_hours": 12.7889,
+      "maximum_instances": 1,
+      "average_instances": 0.0
+    }]
+  }, {
+    "service_name": "p-redis",
+    "service_guid": "f9130a6b-7024-40ee-b586-03ed6328ad48",
+    "year": 2019,
+    "duration_in_hours": 771.5614416666666,
+    "maximum_instances": 1,
+    "average_instances": 50.25,
+    "plans": [{
+      "service_plan_name": "standard",
+      "service_plan_guid": "84d94285-e887-493e-a6ea-3d173635472c",
+      "year": 2019,
+      "duration_in_hours": 771.5614416666666,
+      "maximum_instances": 1,
+      "average_instances": 0.9
+    }]
+  }, {
+    "service_name": "p.mysql",
+    "service_guid": "0f67aab7-1e33-4cfa-8e13-f60c61f6543a",
+    "year": 2019,
+    "duration_in_hours": 71.1567,
+    "maximum_instances": 1,
+    "average_instances": 100.25,
+    "plans": [{
+      "service_plan_name": "db-small",
+      "service_plan_guid": "7ff79b92-12ec-4592-8781-c2197670984c",
+      "year": 2019,
+      "duration_in_hours": 71.1567,
+      "maximum_instances": 1,
+      "average_instances": 0.1
+    }]
+  }, {
+    "service_name": "p-rabbitmq",
+    "service_guid": "049e4b45-edfa-40f8-8cb7-933799604544",
+    "year": 2019,
+    "duration_in_hours": 0.0736111,
+    "maximum_instances": 1,
+    "average_instances": 45.5,
+    "plans": [{
+      "service_plan_name": "standard",
+      "service_plan_guid": "633b2fd9-8ffa-4457-9de3-9aec5b716178",
+      "year": 2019,
+      "duration_in_hours": 0.0736111,
+      "maximum_instances": 1,
+      "average_instances": 0.0
+    }]
+  }]
+}
