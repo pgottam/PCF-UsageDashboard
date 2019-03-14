@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage;
+package io.pivotal.tola.cfapi.Usage.configuration;
 
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
