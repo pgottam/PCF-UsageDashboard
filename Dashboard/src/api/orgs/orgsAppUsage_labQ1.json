@@ -1,0 +1,22 @@
+{
+  "organization_guid": "5fc0a009-f288-40fb-8c0d-55eb682bd926",
+  "period_start": "2019-01-01T00:00:00Z",
+  "period_end": "2019-03-31T23:59:59Z",
+  "app_usages": [{
+    "space_guid": "ef57266e-06b7-43b9-9be0-b5f43d4ddfb0",
+    "space_name": "sample-apps",
+    "app_name": "platformSummary",
+    "app_guid": "2f48a276-f079-4519-b2ba-4beb17b11ec0",
+    "instance_count": 1,
+    "memory_in_mb_per_instance": 768,
+    "duration_in_seconds": 2866775
+  }, {
+    "space_guid": "ef57266e-06b7-43b9-9be0-b5f43d4ddfb0",
+    "space_name": "sample-apps",
+    "app_name": "pcf-chargeback-spring",
+    "app_guid": "f21aa01a-8a57-49c1-842f-59c0d1f3f8fe",
+    "instance_count": 1,
+    "memory_in_mb_per_instance": 768,
+    "duration_in_seconds": 2277467
+  }]
+}

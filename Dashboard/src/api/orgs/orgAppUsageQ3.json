@@ -1,7 +1,7 @@
 {
   "organization_guid": "0fdbaf14-f7e3-4e56-9780-242380753fd2",
-  "period_start": "2019-04-01T00:00:00Z",
-  "period_end": "2019-06-30T23:59:59Z",
+  "period_start": "2019-07-01T00:00:00Z",
+  "period_end": "2019-09-30T23:59:59Z",
   "app_usages": [{
     "space_guid": "fd4f5ffe-ce95-4988-8be4-bf6af9556d73",
     "space_name": "backend",
@@ -9,7 +9,7 @@
     "app_guid": "03932409-4852-44cf-810e-4c0ce98028cf",
     "instance_count": 1,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 921916513
+    "duration_in_seconds": 521916513
   }, {
     "space_guid": "fd4f5ffe-ce95-4988-8be4-bf6af9556d73",
     "space_name": "backend",
@@ -17,7 +17,7 @@
     "app_guid": "03932409-4852-44cf-810e-4c0ce98028cf",
     "instance_count": 2,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 773293698
+    "duration_in_seconds": 53293698
   }, {
     "space_guid": "3b2723f0-f2b0-430b-8937-961cbdec29dd",
     "space_name": "frontend",
@@ -33,7 +33,7 @@
     "app_guid": "2c7b9cfe-0486-4fe6-8a9a-cbb5cce7bb12",
     "instance_count": 1,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 456
+    "duration_in_seconds": 444456
   }, {
     "space_guid": "3b2723f0-f2b0-430b-8937-961cbdec29dd",
     "space_name": "frontend",
@@ -41,7 +41,7 @@
     "app_guid": "4c76348c-8efa-4bfe-b5d9-f260f4ad5721",
     "instance_count": 1,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 45046
+    "duration_in_seconds": 9945046
   }, {
     "space_guid": "3b2723f0-f2b0-430b-8937-961cbdec29dd",
     "space_name": "frontend",
@@ -49,7 +49,7 @@
     "app_guid": "4f90cc7e-2361-40b9-8838-615353c31b95",
     "instance_count": 1,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 85210324
+    "duration_in_seconds": 185210324
   }, {
     "space_guid": "3b2723f0-f2b0-430b-8937-961cbdec29dd",
     "space_name": "frontend",
@@ -73,7 +73,7 @@
     "app_guid": "85af417b-8ff9-4136-b523-dbe777ce245a",
     "instance_count": 1,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 8971049
+    "duration_in_seconds": 51049
   }, {
     "space_guid": "3b2723f0-f2b0-430b-8937-961cbdec29dd",
     "space_name": "frontend",
@@ -81,7 +81,7 @@
     "app_guid": "90bb04a1-c20e-4a5b-800f-7449b291fa20",
     "instance_count": 1,
     "memory_in_mb_per_instance": 32,
-    "duration_in_seconds": 274
+    "duration_in_seconds": 888274
   }, {
     "space_guid": "fd4f5ffe-ce95-4988-8be4-bf6af9556d73",
     "space_name": "backend",

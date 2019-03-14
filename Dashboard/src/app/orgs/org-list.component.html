@@ -73,17 +73,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let org of finalAppUsageArrByOrg'>
-          <td *ngIf {[org.quarter = 'Q1']}></td>
-          <td><a class='nav-link' [routerLink]="['/orgSummary']">{{ org.orgName }}</a></td>
-          <td>{{ org.orgGuid }}</td>
+        <tr *ngFor='let usage of prod1Arr'>
+          <td><!--<a class='nav-link' [routerLink]="['/orgSummary']">{{ usage.orgName }}</a>--></td>
+          <td>{{ usage.orgName | lowercase}}</td>
           <!--<td>{{ org.name | lowercase | convertToSpaces: '-' }}</td> -->
-          <td>{{ org.metadata.created_at }}</td>
+          <td>AIs: {{ usage.q1AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q1SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q2AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q2SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q3AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q3SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q4AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q4SIUsage | number:'1.2-2'}} </td>
           <!--<td>{{ org.price | currency:'USD':'symbol':'1.2-2' }}</td>-->
-          <td>
+          <!--<td>
             {{ org.app_name }}
-            <!--<pm-star [rating]='org.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star> -->
-          </td>
+            <pm-star [rating]='org.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star> 
+          </td>-->
         </tr>
         <tr style="border-bottom:2px solid blue">
           <td colspan="100%"></td>
@@ -93,7 +95,7 @@
     </table>
   </div>
 
-  <div class='card-body'>
+  <div class='card-body' *ngIf='prod2Arr && prod2Arr.length'>
     <div class='col-md-2'></div>
     <div class='col-md-4'>
       <b>CDC</b>
@@ -101,7 +103,7 @@
   </div>
 
   <!-- Prod 2 Org Info -->
-  <div class='table-responsive'>
+  <div class='table-responsive' *ngIf='prod2Arr && prod2Arr.length'>
     <table class='table'>
       <thead>
         <tr>
@@ -115,17 +117,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let org of filteredOrgs'>
-          <td></td>
-          <td><a class='nav-link' [routerLink]="['/orgSummary']">{{ org.entity.name }}</a></td>
-          <td>{{ org.metadata.guid }}</td>
+        <tr *ngFor='let usage of prod2Arr'>
+          <td><!--<a class='nav-link' [routerLink]="['/orgSummary']">{{ usage.orgName }}</a>--></td>
+          <td>{{ usage.orgName | lowercase}}</td>
           <!--<td>{{ org.name | lowercase | convertToSpaces: '-' }}</td> -->
-          <td>{{ org.metadata.created_at }}</td>
-          <!--<td>{{ org.price | currency:'USD':'symbol':'1.2-2' }}</td>-->
-          <td>
-            {{ org.app_name }}
-            <!--<pm-star [rating]='org.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star> -->
-          </td>
+          <td>AIs: {{ usage.q1AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q1SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q2AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q2SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q3AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q3SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q4AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q4SIUsage | number:'1.2-2'}} </td>
         </tr>
         <tr style="border-bottom:2px solid blue">
           <td colspan="100%"></td>
@@ -157,17 +156,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let org of filteredOrgs'>
-          <td></td>
-          <td><a class='nav-link' [routerLink]="['/orgSummary']">{{ org.entity.name }}</a></td>
-          <td>{{ org.metadata.guid }}</td>
+        <tr *ngFor='let usage of stageArr'>
+          <td><!--<a class='nav-link' [routerLink]="['/orgSummary']">{{ usage.orgName }}</a>--></td>
+          <td>{{ usage.orgName | lowercase}}</td>
           <!--<td>{{ org.name | lowercase | convertToSpaces: '-' }}</td> -->
-          <td>{{ org.metadata.created_at }}</td>
-          <!--<td>{{ org.price | currency:'USD':'symbol':'1.2-2' }}</td>-->
-          <td>
-            {{ org.app_name }}
-            <!--<pm-star [rating]='org.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star> -->
-          </td>
+          <td>AIs: {{ usage.q1AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q1SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q2AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q2SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q3AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q3SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q4AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q4SIUsage | number:'1.2-2'}} </td>
         </tr>
         <tr style="border-bottom:2px solid blue">
           <td colspan="100%"></td>
@@ -199,18 +195,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let org of filteredOrgs'>
-          <td></td>
-          <td><a class='nav-link' [routerLink]="['/orgSummary']">{{ org.entity.name }}</a></td>
-          <td>{{ org.metadata.guid }}</td>
+        <tr *ngFor='let usage of devArr'>
+          <td><!--<a class='nav-link' [routerLink]="['/orgSummary']">{{ usage.orgName }}</a>--></td>
+          <td>{{ usage.orgName | lowercase}}</td>
           <!--<td>{{ org.name | lowercase | convertToSpaces: '-' }}</td> -->
-          <td>{{ org.metadata.created_at }}</td>
-          <!--<td>{{ org.price | currency:'USD':'symbol':'1.2-2' }}</td>-->
-          <td>
-            {{ org.app_name }}
-            <!--<pm-star [rating]='org.starRating' (ratingClicked)='onRatingClicked($event)'></pm-star> -->
-          </td>
-        </tr>
+          <td>AIs: {{ usage.q1AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q1SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q2AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q2SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q3AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q3SIUsage | number:'1.2-2'}} </td>
+          <td>AIs: {{ usage.q4AIUsage | number:'1.2-2'}} <br> SIs: {{ usage.q4SIUsage | number:'1.2-2'}} </td>
 
       </tbody>
     </table>

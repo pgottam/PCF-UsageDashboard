@@ -557,7 +557,7 @@ export class PlatformSummaryComponent implements OnInit {
     ),
 
     // pull back average SI counts for PROD only foundations
-    this.platformService.getProdSIs("PDC","CDC").subscribe(
+    this.platformService.getProdSIs('PDC','CDC').subscribe(
         prodSIs => {
 
           // assigns the merged array of multiple foundations to a local array variable
@@ -575,7 +575,8 @@ export class PlatformSummaryComponent implements OnInit {
             // loop through inner array of of yearly service reports witihin each foundation to capture details of each service instance
             for (let n=0;n<this.prodSIs.length;n++) {
               // console.log("Service Name: ", this.allSIsTemp[i].service_name);
-              if ( (this.prodSIs[n].service_name.indexOf('redis') >= 0) || (this.prodSIs[n].service_name.indexOf('rabbitmq') >= 0) || (this.prodSIs[n].service_name.indexOf('mysql') >= 0)) {
+              if ( (this.prodSIs[n].service_name.indexOf('redis') >= 0) ||
+                  (this.prodSIs[n].service_name.indexOf('rabbitmq') >= 0) || (this.prodSIs[n].service_name.indexOf('mysql') >= 0)) {
                   this.prodSIAvg += this.prodSIs[n].average_instances;
               }
               // console.log("All SIs Temp Array: ", this.prodSIs[n]);

@@ -72,12 +72,12 @@
           <td></td>
           <td><a class='nav-link' [routerLink]="['/orgs']">{{ usage.name }}</a></td>
           <!-- remove link for each org...default to upper menu links for "Home" "Orgs" "Spaces" and "Apps" for now -->
-          <td>AIs: {{ usage.Q1.AIs }}<br>SIs: {{ usage.Q1.SIs }} </td>
+          <td>AIs: {{ usage.Q1.AIs | number:'1.2-2'}}<br>SIs: {{ usage.Q1.SIs | number:'1.2-2'}} </td>
           <!--<td>{{ org.name | lowercase | convertToSpaces: '-' }}</td> -->
-          <td>AIs: {{ usage.Q2.AIs }}<br>SIs: {{ usage.Q2.SIs }} </td>
+          <td>AIs: {{ usage.Q2.AIs | number:'1.2-2'}}<br>SIs: {{ usage.Q2.SIs | number:'1.2-2'}} </td>
           <!--<td>{{ org.price | currency:'USD':'symbol':'1.2-2' }}</td>-->
-          <td>AIs: {{ usage.Q3.AIs }}<br>SIs: {{ usage.Q3.SIs }}</td>
-          <td>AIs: {{ usage.Q4.AIs }}<br>SIs: {{ usage.Q4.SIs }}</td>
+          <td>AIs: {{ usage.Q3.AIs | number:'1.2-2'}}<br>SIs: {{ usage.Q3.SIs | number:'1.2-2'}}</td>
+          <td>AIs: {{ usage.Q4.AIs | number:'1.2-2'}}<br>SIs: {{ usage.Q4.SIs | number:'1.2-2'}}</td>
           <td>
           </td>
         </tr>

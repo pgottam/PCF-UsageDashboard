@@ -3,7 +3,7 @@ import { IFoundations } from "./foundations";
 import { Observable, throwError, forkJoin } from "rxjs";
 import { HttpClient, HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { catchError } from 'rxjs/operators';
-//import { forkJoin } from "rxjs/observable/forkJoin";
+// import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Injectable({
   providedIn: 'root'

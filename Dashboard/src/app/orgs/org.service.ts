@@ -9,37 +9,35 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class OrgService {
+  //private testOrgsUrl = `http://localhost:8080/api/orgs?foundation=${foundation}`;
   // private orgsUrl = 'api/orgs/orgTest.json'
   private orgsUrl = 'api/orgs/orgs.json';
   // any request that needs space/app level info per GUID for a foundation
   private appUsageUrl = 'http://localhost:8080/api/appUsage'
+  private svcUsageUrl = 'http://localhost:8080/api/svcUsage'
   // private orgsUrl = 'https:///api.run.pivotal.io/v2/organizations';
   private orgUsageUrl = 'api/orgs/orgUsageSummary.json';
-  // orgs URLs
-  private pdcOrgsUrl = 'api/orgs/pdcOrgs.json';
-  private getOrgsUrl = 'http://localhost:8080/api/getOrgs';
-  // private pdcOrgsUrl = 'http://localhost:8080/api/getOrgs';
-  // private cdcOrgsUrl = 'api/orgs/cdcOrgs.json';
-  private cdcOrgsUrl = 'http://localhost:8080/api/getOrgs';
-  // private stageOrgsUrl = 'api/orgs/stageOrgs.json';
-  private stageOrgsUrl = 'http://localhost:8080/api/getOrgs';
-  // private devOrgsUrl = 'api/orgs/devOrgs.json';
-  private devOrgsUrl = 'http://localhost:8080/api/getOrgs';
-
-  // NO LONGER NEEDED
-  // private pdcTestUrl = 'https://pcf-chargeback-spring-turbulent-oryx.cfapps.jacktown.us/api/getToken';
-  // private pdcTestUrl = 'https://pcf-chargeback-spring-bold-wolf.cfapps.io/api/getToken';
 
   constructor(private http: HttpClient) {}
 
-  getAllOrgs() {
+  // TEST Code...DELETE when DONE //
 
-    /*let config = {
-      headers: {
-        'Access-Control-Allow-Origin ': '*',
-        'Accept ': 'application/json'
-      }
-    }*/
+  getOrgDetails(foundation: string) {
+
+    return this.http.get(`http://localhost:8080/api/orgs?foundation=${foundation}`).pipe(
+      catchError(this.handleError));
+  } 
+
+  TESTOrgAppUsage(fName: string, guid: string, quarter: number) {
+    return this.http.get(`http://localhost:8080/api/org/${guid}/appusage/${quarter}?foundation=${fName}`).pipe(
+      catchError(this.handleError));
+  }
+  TESTOrgSvcUsage(fName: string, guid: string, quarter: number) {
+    return this.http.get(`http://localhost:8080/api/org/${guid}/svcusage/${quarter}?foundation=${fName}`).pipe(
+      catchError(this.handleError));
+  } // end of TEST code....delete when DONE //
+
+  /*getAllOrgs() {
 
     let response1 = this.http.get(this.pdcOrgsUrl);
     let response2 = this.http.get(this.cdcOrgsUrl);
@@ -48,7 +46,7 @@ export class OrgService {
 
     return forkJoin([response1, response2, response3, response4]).pipe(
         catchError(this.handleError));
-  }
+}*/
 
   getOrgAppUsage(foundationName: string, guid: string, quarter: string) {
     // console.log("Params: ", foundationName, guid, quarter);
@@ -65,7 +63,22 @@ export class OrgService {
 
   }
 
-  getOneOrg(foundationName: string) {
+  getOrgSvcUsage(foundationName: string, guid: string, quarter: string) {
+    // console.log("Params: ", foundationName, guid, quarter);
+
+    return this.http.get(this.svcUsageUrl, {
+      params: {
+        foundationName: foundationName,
+        orgGuid: guid,
+        quarter: quarter
+      },
+      observe: 'response'
+    }).pipe(
+        catchError(this.handleError));
+
+  }
+
+  /*getOrgDetails(foundationName: string) {
 
     return this.http.get(this.getOrgsUrl, {
       params: {
@@ -75,7 +88,7 @@ export class OrgService {
     }).pipe(
         catchError(this.handleError));
 
-  }
+  }*/
 
   /*getProd1OrgDetails(foundationName: string) {
     return this.http.get(this.getOrgsUrl, {
