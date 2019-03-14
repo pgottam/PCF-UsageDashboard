@@ -17,6 +17,16 @@ export class OrgService {
   private svcUsageUrl = 'http://localhost:8080/api/svcUsage'
   // private orgsUrl = 'https:///api.run.pivotal.io/v2/organizations';
   private orgUsageUrl = 'api/orgs/orgUsageSummary.json';
+  // orgs URLs
+  private pdcOrgsUrl = 'api/orgs/pdcOrgs.json';
+  private getOrgsUrl = 'http://localhost:8080/api/getOrgs';
+  // private pdcOrgsUrl = 'http://localhost:8080/api/getOrgs';
+  // private cdcOrgsUrl = 'api/orgs/cdcOrgs.json';
+  private cdcOrgsUrl = 'http://localhost:8080/api/getOrgs';
+  // private stageOrgsUrl = 'api/orgs/stageOrgs.json';
+  private stageOrgsUrl = 'http://localhost:8080/api/getOrgs';
+  // private devOrgsUrl = 'api/orgs/devOrgs.json';
+  private devOrgsUrl = 'http://localhost:8080/api/getOrgs';
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +47,7 @@ export class OrgService {
       catchError(this.handleError));
   } // end of TEST code....delete when DONE //
 
-  /*getAllOrgs() {
+  getAllOrgs() {
 
     let response1 = this.http.get(this.pdcOrgsUrl);
     let response2 = this.http.get(this.cdcOrgsUrl);
@@ -46,7 +56,7 @@ export class OrgService {
 
     return forkJoin([response1, response2, response3, response4]).pipe(
         catchError(this.handleError));
-}*/
+}
 
   getOrgAppUsage(foundationName: string, guid: string, quarter: string) {
     // console.log("Params: ", foundationName, guid, quarter);
