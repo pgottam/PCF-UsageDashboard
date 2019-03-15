@@ -3,6 +3,9 @@ package io.pivotal.tola.cfapi.Usage.model;
 import lombok.Builder; 
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Data
 @Builder
 public class SIUsage {
@@ -11,23 +14,39 @@ public class SIUsage {
     private int year;
     private int quarter;
 
-    private int totalSvcs;
-    private int totalSis;
-    private int totalMbPerSis;
-    private long siDurationInSecs;
+    private long totalSvcs;
+    private long totalSis;
+    private double siDurationInSecs;
 
-    // not needed for SI calculations    
-    /*public void addSiCount(int c) {
-        totalSis += c;
-    }*/
+    @Builder.Default
+    private Map<String, SISpaceUsage> siSpaceUsage = new HashMap<>();
 
-    // not needed for SI calculation
-    /*public void addMb(int c) {
-        totalMbPerSis += c;
-    }*/
+    public long getTotalSvcs(){
 
-    public void addlDurationInSecs(long c) {
-        siDurationInSecs += c;
+        long count = 0L;
+        if(siSpaceUsage != null && siSpaceUsage.size() > 0){
+            count = siSpaceUsage.values().stream().map(o-> o.getTotalSvcs()).mapToLong(Long::intValue).sum();
+        }
+        return count;
     }
+
+    public long getTotalSis(){
+
+        long count = 0L;
+        if(siSpaceUsage != null && siSpaceUsage.size() > 0){
+            count = siSpaceUsage.values().stream().map(o-> o.getTotalSis()).mapToLong(Long::intValue).sum();
+        }
+        return count;
+    }
+
+    public double getSiDurationInSecs(){
+
+        double count = 0.0;
+        if(siSpaceUsage != null && siSpaceUsage.size() > 0){
+            count = siSpaceUsage.values().stream().map(o-> o.getSiDurationInSecs()).mapToDouble(Double::doubleValue).sum();
+        }
+        return count;
+    }
+
 
 }

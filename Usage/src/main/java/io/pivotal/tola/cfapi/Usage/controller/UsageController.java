@@ -1,11 +1,17 @@
 package io.pivotal.tola.cfapi.Usage.controller;
 
-import java.util.Calendar;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 
+import io.pivotal.tola.cfapi.Usage.model.*;
+import io.pivotal.tola.cfapi.response.model.*;
 import org.cloudfoundry.operations.CloudFoundryOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import io.pivotal.tola.cfapi.Usage.configuration.FoundationsConfig;
-import io.pivotal.tola.cfapi.Usage.model.FoundationUsage;
-import io.pivotal.tola.cfapi.Usage.model.OrgUsage;
-import io.pivotal.tola.cfapi.Usage.model.Organization;
-import io.pivotal.tola.cfapi.Usage.model.SIUsage;
 import reactor.core.publisher.Mono;
 
 import lombok.Builder;
@@ -35,10 +37,11 @@ import lombok.Builder;
 @RequestMapping("/api")
 public class UsageController {
 
+
     private static final Logger LOG = LoggerFactory.getLogger(UsageController.class);
 
     private final String[] START_DATES = new String[] { "01-01", "04-01", "07-01", "10-01" };
-    private final String[] END_DATES = new String[] { "03-01", "06-01", "09-01", "12-01" };
+    private final String[] END_DATES = new String[] { "03-31", "06-30", "09-30", "12-31" };
 
     @Autowired
     private FoundationsConfig config;
@@ -67,23 +70,54 @@ public class UsageController {
 
         String result = callAppUsageApi(foundation, orgGuid, year, quarter).getBody();
 
-        DocumentContext jsonContext = JsonPath.parse(result);
-
-        // MMB: I could not get the functions to work, like sum(). Notice I used length below
-        // List<Integer> instanceCount = jsonContext.read("$.app_usages[*].instance_count");
-        // List<Integer> memInMbPerInstance = jsonContext.read("$.app_usages[*].memory_in_mb_per_instance");
-        // LOG.info("Total instanceCount {}, memInMbPerInstance {}", instanceCount, memInMbPerInstance);
-
-        int totalApps = jsonContext.read("$.app_usages.length()");
-        LOG.info("Total Apps {}", totalApps);
-
-        OrgUsage orgUsage = OrgUsage.builder().orgGuid(orgGuid).year(year).quarter(quarter).totalApps(totalApps).build();
-        for (int i = 0; i < totalApps; i++) {
-            orgUsage.addAiCount(jsonContext.read("$.app_usages[" + i + "].instance_count"));
-            orgUsage.addMb(jsonContext.read("$.app_usages[" + i + "].memory_in_mb_per_instance"));
-            orgUsage.addlDurationInSecs(jsonContext.read("$.app_usages[" + i + "].duration_in_seconds", Long.class));
+        ObjectMapper objectMapper = new ObjectMapper();
+        AppUsage appUsage = null;
+        try {
+            appUsage = objectMapper.readValue(result, AppUsage.class);
+        }catch (JsonParseException |JsonMappingException jme){
+            LOG.error("Encountered exception response to AppUsage", jme.getMessage());
+        }catch (IOException e){
+            LOG.error("Encountered IO exception response to AppUsage", e);
         }
 
+
+        OrgUsage orgUsage = OrgUsage.builder().orgGuid(orgGuid).year(year).quarter(quarter).build();
+
+        //Space calculations
+        Map<String, List<AppUsage_>> spaceMap = appUsage.getAppUsages().stream().collect(Collectors.groupingBy(AppUsage_::getSpaceGuid));
+        Map<String, SpaceUsage> spaceUsageMap = new HashMap<>();
+        spaceMap.forEach((k,v)->{
+
+            if(v != null && v.size() > 0) {
+                final SpaceUsage su = SpaceUsage.builder().build();
+                su.setSpaceGuid(k);
+                su.setSpaceName(v.get(0).getSpaceName());
+                su.setTotalApps(UsageUtils.getUniqueApps(v).size());
+                su.setTotalAis(v.size());
+                su.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(v));
+                su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v));
+
+
+                Map<String, List<AppUsage_>> appMap = v.stream().collect(Collectors.groupingBy(AppUsage_::getAppGuid));
+                Map<String, AUsage> aUsageMap = new HashMap<>();
+                appMap.forEach((ak, av) -> {
+
+                    if(av != null && av.size() > 0) {
+                        final AUsage a = AUsage.builder().build();
+                        a.setAppGuid(av.get(0).getAppGuid());
+                        a.setAppName(av.get(0).getAppName());
+                        a.setTotalAis(av.size());
+                        a.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(av));
+                        a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av));
+                        aUsageMap.put(ak, a);
+                    }
+                });
+                su.setAUsage(aUsageMap);
+                spaceUsageMap.put(k, su);
+            }
+        });
+
+        orgUsage.setSpaceUsage(spaceUsageMap);
         return orgUsage;
     }
 
@@ -97,23 +131,35 @@ public class UsageController {
 
         String result = callSvcUsageApi(foundation, orgGuid, year, quarter).getBody();
 
-        DocumentContext jsonContext = JsonPath.parse(result);
-
-        // MMB: I could not get the functions to work, like sum(). Notice I used length below
-        // List<Integer> instanceCount = jsonContext.read("$.app_usages[*].instance_count");
-        // List<Integer> memInMbPerInstance = jsonContext.read("$.app_usages[*].memory_in_mb_per_instance");
-        // LOG.info("Total instanceCount {}, memInMbPerInstance {}", instanceCount, memInMbPerInstance);
-
-        int totalSvcs = jsonContext.read("$.service_usages.length()");
-        LOG.info("Total Svcs {}", totalSvcs);
-
-        SIUsage siUsage = SIUsage.builder().orgGuid(orgGuid).year(year).quarter(quarter).totalSvcs(totalSvcs).build();
-        for (int i = 0; i < totalSvcs; i++) {
-            // siUsage.addSiCount(jsonContext.read("$.service_usages[" + i + "].instance_count"));  NO instance_count exists for service_usages JSON
-            // siUsage.addMb(jsonContext.read("$.service_usages[" + i + "].memory_in_mb_per_instance"));
-            siUsage.addlDurationInSecs(jsonContext.read("$.service_usages[" + i + "].duration_in_seconds", Long.class));
+        ObjectMapper objectMapper = new ObjectMapper();
+        ServiceUsage serviceUsage = null;
+        try {
+            serviceUsage = objectMapper.readValue(result, ServiceUsage.class);
+        }catch (JsonParseException |JsonMappingException jme){
+            LOG.error("Encountered exception response to ServiceUsage", jme.getMessage());
+        }catch (IOException e){
+            LOG.error("Encountered IO exception response to ServiceUsage ", e);
         }
 
+        SIUsage siUsage = SIUsage.builder().orgGuid(orgGuid).year(year).quarter(quarter).build();
+
+        //Service instances per space calculation
+        Map<String, List<ServiceUsage_>> siSpaceMap = serviceUsage.getServiceUsages().stream().collect(Collectors.groupingBy(ServiceUsage_::getSpaceGuid));
+        Map<String, SISpaceUsage> siSpaceUsageMap = new HashMap<>();
+        siSpaceMap.forEach((k,v)->{
+
+            if(v != null && v.size() > 0) {
+                final SISpaceUsage su = SISpaceUsage.builder().build();
+                su.setSpaceGuid(k);
+                su.setSpaceName(v.get(0).getSpaceName());
+                su.setTotalSis(v.size());
+                su.setTotalSvcs(UsageUtils.getUniqueServices(v).size());
+                su.setSiDurationInSecs(UsageUtils.computeTotalSIDurationInSecs(v));
+                siSpaceUsageMap.put(k, su);
+            }
+
+        });
+        siUsage.setSiSpaceUsage(siSpaceUsageMap);
         return siUsage;
     }
 
@@ -189,31 +235,3 @@ public class UsageController {
     }
 
 }
-
-/*
-{"organization_guid":"ca878858-3271-47bf-9e4b-8f223bfaa3f5",
-"period_start":"2019-01-01T00:00:00Z",
-"period_end":"2019-03-01T23:59:59Z",
-"app_usages":[
-    {"space_guid":"e613cbf5-0dab-4b1a-bd8c-795670fec5f3",
-                "space_name":"test",
-                "app_name":"simple-php",
-                "app_guid":"3fe77bb8-b23e-4865-b1b5-e98921697f05",
-                "instance_count":1,"memory_in_mb_per_instance":128,"duration_in_seconds":5184000},
-              {"space_guid":"e613cbf5-0dab-4b1a-bd8c-795670fec5f3",
-                "space_name":"test",
-                "app_name":"laravel",
-                "app_guid":"51cf500c-80dd-400a-b635-a6b83c389859",
-                "instance_count":2,
-                "memory_in_mb_per_instance":128,
-                "duration_in_seconds":5184000},
-              {"space_guid":"e613cbf5-0dab-4b1a-bd8c-795670fec5f3",
-                "space_name":"test",
-                "app_name":"cf-ex-phpmyadmin",
-                "app_guid":"90e321e8-a5b7-41c5-98db-caa24644cd11",
-                "instance_count":1,
-                "memory_in_mb_per_instance":128,
-                "duration_in_seconds":5184000}
-                ]
-            }
-*/
