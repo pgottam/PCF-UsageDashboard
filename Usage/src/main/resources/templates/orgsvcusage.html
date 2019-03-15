@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ePaaS Platform -- Org & Spaces</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="container">
+    <!-- Content here -->
+
+    <h1 th:text="'Foundation: ' + ${foundation}"/>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Org Name</th>
+            <th>Total Services</th>
+            <th>Total Sis</th>
+            <th>Si Duration in Secs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${orgName}">Org Name</td>
+            <td th:text="${orgSvcUsage.totalSvcs}">Total Services</td>
+            <td th:text="${orgSvcUsage.totalSis}">Total Sis</td>
+            <td th:text="${orgSvcUsage.siDurationInSecs}">Si Duration in Secs</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Space Name </th>
+            <th>Total Services</th>
+            <th>Total Sis</th>
+            <th>Si Duration in Secs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spaceUsageEntry: ${orgSvcUsage.siSpaceUsage}">
+            <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
+            <td th:text="${spaceUsageEntry.value.totalSvcs}">Total Services</td>
+            <td th:text="${spaceUsageEntry.value.totalSis}">Total Sis</td>
+            <td th:text="${spaceUsageEntry.value.siDurationInSecs}">Si Duration in Secs</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary btn-lg float-right" onclick="window.history.back();">Previous Page</button>
+
+</div>
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

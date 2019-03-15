@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ePaaS Platform -- Foundations</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <!-- Content here -->
+
+    <h1>Foundations & Orgs</h1>
+
+    <div th:each="foundationEntry: ${foundations}">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <strong th:text="'Foundation: ' + ${foundationEntry.key}"></strong>
+            </thead>
+            <tbody>
+            <tr th:each="org: ${foundationEntry.value}">
+                <td th:text="'Org: ' + ${org.name}">
+                </td>
+                <td><a class="btn btn-primary" th:href="@{'/view/' + ${usageType} +'/' +  ${org.guid} + '/1?foundation='+ ${foundationEntry.key} + '&orgName='+ ${org.name}}">Q1</a></td>
+                <td><a class="btn btn-primary" th:href="@{'/view/' + ${usageType} +'/' +  ${org.guid} + '/2?foundation='+ ${foundationEntry.key} + '&orgName='+ ${org.name}}">Q2</a></td>
+                <td><a class="btn btn-primary" th:href="@{'/view/' + ${usageType} +'/' +  ${org.guid} + '/3?foundation='+ ${foundationEntry.key} + '&orgName='+ ${org.name}}">Q3</a></td>
+                <td><a class="btn btn-primary" th:href="@{'/view/' + ${usageType} +'/' +  ${org.guid} + '/4?foundation='+ ${foundationEntry.key} + '&orgName='+ ${org.name}}">Q4</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <a class="btn btn-primary btn-lg float-right" href="/view/foundations">Home Page</a>
+
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</div>
+
+</body>
+</html>

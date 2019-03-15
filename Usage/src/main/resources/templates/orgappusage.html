@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ePaaS Platform -- Org & Spaces</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="container">
+    <!-- Content here -->
+
+    <h1 th:text="'Foundation: ' + ${foundation}"/>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Org Name</th>
+            <th>Total Apps</th>
+            <th>Total Ais</th>
+            <th>Total Mb per Ais</th>
+            <th>Ai Duration in Secs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${orgName}">Org Name</td>
+            <td th:text="${orgAppUsage.totalApps}">Total Apps</td>
+            <td th:text="${orgAppUsage.totalAis}">Total Ais</td>
+            <td th:text="${orgAppUsage.totalMbPerAis}">Total Mb per Ais</td>
+            <td th:text="${orgAppUsage.aiDurationInSecs}">Ai Duration in Secs</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Space Name </th>
+            <th>Total Apps</th>
+            <th>Total Ais</th>
+            <th>Total Mb per Ais</th>
+            <th>Ai Duration in Secs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="spaceUsageEntry: ${orgAppUsage.spaceUsage}">
+            <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
+            <td th:text="${spaceUsageEntry.value.totalApps}">Total Apps</td>
+            <td th:text="${spaceUsageEntry.value.totalAis}">Total Ais</td>
+            <td th:text="${spaceUsageEntry.value.totalMbPerAis}">Total Mb per Ais</td>
+            <td th:text="${spaceUsageEntry.value.aiDurationInSecs}">Ai Duration in Secs</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>App Name </th>
+            <th>Space Name</th>
+            <th>Total Ais</th>
+            <th>Total Mb per Ais</th>
+            <th>Ai Duration in Secs</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="auEntry: ${orgAppUsage.aUsage}">
+                <td th:text="${auEntry.value.appName}">App Name</td>
+                <td th:text="${auEntry.value.spaceName}">Space Name</td>
+                <td th:text="${auEntry.value.totalAis}">Total Ais</td>
+                <td th:text="${auEntry.value.totalMbPerAis}">Total Mb per Ais</td>
+                <td th:text="${auEntry.value.aiDurationInSecs}">Ai Duration in Secs</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary btn-lg float-right" onclick="window.history.back();">Previous Page</button>
+
+</div>
+
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
