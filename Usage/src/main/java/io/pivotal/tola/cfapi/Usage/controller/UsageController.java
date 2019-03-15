@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
 
 import io.pivotal.tola.cfapi.Usage.model.*;
 import io.pivotal.tola.cfapi.response.model.*;
@@ -45,6 +43,15 @@ public class UsageController {
 
     @Autowired
     private FoundationsConfig config;
+
+    /**
+     * getFoundations - List all fundations available in an customer environment
+     */
+    @GetMapping(value = "/foundations")
+    public List<String> getFoundations(){
+        return config.getFoundationNames();
+    }
+
 
     /**
      * getOrgs - list all organizations for the foundation
