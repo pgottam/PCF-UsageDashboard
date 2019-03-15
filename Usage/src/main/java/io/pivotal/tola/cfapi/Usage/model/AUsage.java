@@ -9,6 +9,8 @@ public class AUsage {
 
     private String appGuid;
     private String appName;
+    private String spaceGuid;
+    private String spaceName;
 
     private long totalAis;
     private long totalMbPerAis;

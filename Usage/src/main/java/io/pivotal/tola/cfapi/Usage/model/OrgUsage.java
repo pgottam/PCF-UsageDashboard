@@ -25,6 +25,9 @@ public class OrgUsage {
     @Builder.Default
     private Map<String, SpaceUsage> spaceUsage = new HashMap<>();
 
+    @Builder.Default
+    private Map<String, AUsage> aUsage = new HashMap<>();
+
     public long getTotalApps(){
 
         long count = 0L;

@@ -3,9 +3,6 @@ package io.pivotal.tola.cfapi.Usage.model;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Data
 @Builder
 public class SpaceUsage {
@@ -17,8 +14,5 @@ public class SpaceUsage {
     private long totalAis;
     private long totalMbPerAis;
     private long aiDurationInSecs;
-
-    @Builder.Default
-    private Map<String, AUsage> aUsage = new HashMap<>();
 
 }

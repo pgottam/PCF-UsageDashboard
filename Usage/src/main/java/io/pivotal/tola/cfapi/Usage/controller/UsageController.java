@@ -54,14 +54,15 @@ public class UsageController {
 
 
     /**
-     * getOrgs - list all organizations for the foundation
+     * getOrgs - list all organizations for the foundation, exclude system
      */
     @GetMapping(value = "/orgs")
     public List<Organization> getOrgs(String foundation) {
         CloudFoundryOperations operations = config.getOperations(foundation);
 
-        Mono<List<Organization>> orgs = operations.organizations().list().map(organizationSummary -> Organization
-                .builder().guid(organizationSummary.getId()).name(organizationSummary.getName()).build()).collectList();
+        Mono<List<Organization>> orgs = operations.organizations().list().filter(organizationSummary -> !organizationSummary.getName().equalsIgnoreCase("system"))
+                .map(organizationSummary -> Organization.builder().guid(organizationSummary.getId()).name(organizationSummary.getName()).build()).collectList();
+
 
         return orgs.block();
 
@@ -76,6 +77,7 @@ public class UsageController {
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
         String result = callAppUsageApi(foundation, orgGuid, year, quarter).getBody();
+        LOG.info(result);
 
         ObjectMapper objectMapper = new ObjectMapper();
         AppUsage appUsage = null;
@@ -93,6 +95,7 @@ public class UsageController {
         //Space calculations
         Map<String, List<AppUsage_>> spaceMap = appUsage.getAppUsages().stream().collect(Collectors.groupingBy(AppUsage_::getSpaceGuid));
         Map<String, SpaceUsage> spaceUsageMap = new HashMap<>();
+        Map<String, AUsage> aUsageMap = new HashMap<>();
         spaceMap.forEach((k,v)->{
 
             if(v != null && v.size() > 0) {
@@ -106,11 +109,12 @@ public class UsageController {
 
 
                 Map<String, List<AppUsage_>> appMap = v.stream().collect(Collectors.groupingBy(AppUsage_::getAppGuid));
-                Map<String, AUsage> aUsageMap = new HashMap<>();
                 appMap.forEach((ak, av) -> {
 
                     if(av != null && av.size() > 0) {
                         final AUsage a = AUsage.builder().build();
+                        a.setSpaceGuid(su.getSpaceGuid());
+                        a.setSpaceName(su.getSpaceName());
                         a.setAppGuid(av.get(0).getAppGuid());
                         a.setAppName(av.get(0).getAppName());
                         a.setTotalAis(av.size());
@@ -119,11 +123,10 @@ public class UsageController {
                         aUsageMap.put(ak, a);
                     }
                 });
-                su.setAUsage(aUsageMap);
                 spaceUsageMap.put(k, su);
             }
         });
-
+        orgUsage.setAUsage(aUsageMap);
         orgUsage.setSpaceUsage(spaceUsageMap);
         return orgUsage;
     }
