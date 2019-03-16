@@ -13,10 +13,10 @@
     <!-- Content here -->
 
     <h1>ePaaS Platform </h1>
-    <h3> Choose App / Service usage from a foundation</h3>
+    <h3> Select App / Service usage of a foundation</h3>
 
     <div th:each="foundationEntry: ${foundations}">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered table-sm">
             <tbody>
             <tr th:each="org: ${foundationEntry.value}">
                 <td th:text="'Foundation: ' + ${foundationEntry.key}"/>

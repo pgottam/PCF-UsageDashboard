@@ -77,7 +77,7 @@ public class UsageController {
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
         String result = callAppUsageApi(foundation, orgGuid, year, quarter).getBody();
-        LOG.info(result);
+
 
         ObjectMapper objectMapper = new ObjectMapper();
         AppUsage appUsage = null;
@@ -140,6 +140,7 @@ public class UsageController {
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
         String result = callSvcUsageApi(foundation, orgGuid, year, quarter).getBody();
+        LOG.info(result);
 
         ObjectMapper objectMapper = new ObjectMapper();
         ServiceUsage serviceUsage = null;
