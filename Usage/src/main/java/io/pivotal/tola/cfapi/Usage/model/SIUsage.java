@@ -21,6 +21,9 @@ public class SIUsage {
     @Builder.Default
     private Map<String, SISpaceUsage> siSpaceUsage = new HashMap<>();
 
+    @Builder.Default
+    private Map<String, ServiceInstanceUsage> serviceInstanceUsage = new HashMap<>();
+
     public long getTotalSvcs(){
 
         long count = 0L;

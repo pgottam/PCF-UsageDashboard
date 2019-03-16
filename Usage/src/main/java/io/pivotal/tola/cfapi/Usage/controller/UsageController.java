@@ -157,6 +157,8 @@ public class UsageController {
         //Service instances per space calculation
         Map<String, List<ServiceUsage_>> siSpaceMap = serviceUsage.getServiceUsages().stream().collect(Collectors.groupingBy(ServiceUsage_::getSpaceGuid));
         Map<String, SISpaceUsage> siSpaceUsageMap = new HashMap<>();
+        Map<String, ServiceInstanceUsage> serviceInstanceUsageMap = new HashMap<>();
+
         siSpaceMap.forEach((k,v)->{
 
             if(v != null && v.size() > 0) {
@@ -170,6 +172,26 @@ public class UsageController {
             }
 
         });
+
+        siSpaceMap.forEach((k,v) -> {
+
+            if(v != null && v.size() > 0) {
+
+                v.stream().forEach((sv) -> {
+
+                    final ServiceInstanceUsage su = ServiceInstanceUsage.builder().build();
+                    su.setSpaceName(sv.getSpaceName());
+                    su.setDurationInSecs(sv.getDurationInSeconds());
+                    su.setServiceInstanceName(sv.getServiceInstanceName());
+                    su.setServiceName(sv.getServiceName());
+                    serviceInstanceUsageMap.put(sv.getServiceInstanceGuid(), su);
+
+                });
+            }
+
+        });
+
+        siUsage.setServiceInstanceUsage(serviceInstanceUsageMap);
         siUsage.setSiSpaceUsage(siSpaceUsageMap);
         return siUsage;
     }
