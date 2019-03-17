@@ -76,8 +76,13 @@ public class UsageController {
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
-        String result = callAppUsageApi(foundation, orgGuid, year, quarter).getBody();
+        return appUsage(foundation, orgGuid, year, quarter);
 
+    }
+
+    public OrgUsage appUsage(String foundation, String orgGuid, int year, int quarter) {
+
+        String result = callAppUsageApi(foundation, orgGuid, year, quarter).getBody();
 
         ObjectMapper objectMapper = new ObjectMapper();
         AppUsage appUsage = null;
@@ -138,6 +143,11 @@ public class UsageController {
     public SIUsage svcUsage(String foundation, @PathVariable String orgGuid, @PathVariable int quarter) {
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
+        return this.svcUsage(foundation, orgGuid, year, quarter);
+
+    }
+
+    public SIUsage svcUsage(String foundation, String orgGuid, int year, int quarter) {
 
         String result = callSvcUsageApi(foundation, orgGuid, year, quarter).getBody();
         LOG.info(result);

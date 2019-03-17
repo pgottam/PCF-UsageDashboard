@@ -44,10 +44,10 @@ public class ViewController {
 
         final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
         foundationOrgMap.put(foundation, usageController.getOrgs(foundation));
-        model.addAttribute("usageType", "appusage");
         model.addAttribute("foundations", foundationOrgMap);
+        model.addAttribute("quarters", new DateUtils().getPastQuarters(4));
 
-        return "foundationorgs";
+        return "foundationorgapp";
     }
 
     @GetMapping("/svcusage")
@@ -55,28 +55,39 @@ public class ViewController {
 
         final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
         foundationOrgMap.put(foundation, usageController.getOrgs(foundation));
-        model.addAttribute("usageType", "svcusage");
         model.addAttribute("foundations", foundationOrgMap);
+        model.addAttribute("quarters", new DateUtils().getPastQuarters(4));
 
-        return "foundationorgs";
+
+        return "foundationorgsvc";
     }
 
-    @GetMapping("/appusage/{orgGuid}/{quarter}")
-    public String orgAppUsage(String foundation, String orgName, @PathVariable String orgGuid, @PathVariable int quarter, Model model){
+    @GetMapping("/appusage/{orgGuid}/{yearQuarter}")
+    public String orgAppUsage(String foundation, String orgName, @PathVariable String orgGuid, @PathVariable String yearQuarter, Model model){
 
         model.addAttribute("orgName", orgName);
         model.addAttribute("foundation", foundation);
-        model.addAttribute("orgAppUsage", usageController.appUsage(foundation,orgGuid,quarter));
+
+        String[] d = yearQuarter.split("-");
+        int year = Integer.parseInt(d[0]);
+        int quarter = Integer.parseInt(d[1]);
+
+        model.addAttribute("orgAppUsage", usageController.appUsage(foundation,orgGuid, year, quarter));
 
         return "orgappusage";
     }
 
-    @GetMapping("/svcusage/{orgGuid}/{quarter}")
-    public String orgSvcUsage(String foundation, String orgName, @PathVariable String orgGuid, @PathVariable int quarter, Model model){
+    @GetMapping("/svcusage/{orgGuid}/{yearQuarter}")
+    public String orgSvcUsage(String foundation, String orgName, @PathVariable String orgGuid, @PathVariable String yearQuarter, Model model){
 
         model.addAttribute("orgName", orgName);
         model.addAttribute("foundation", foundation);
-        model.addAttribute("orgSvcUsage", usageController.svcUsage(foundation,orgGuid,quarter));
+
+        String[] d = yearQuarter.split("-");
+        int year = Integer.parseInt(d[0]);
+        int quarter = Integer.parseInt(d[1]);
+
+        model.addAttribute("orgSvcUsage", usageController.svcUsage(foundation,orgGuid, year, quarter));
 
         return "orgsvcusage";
     }
