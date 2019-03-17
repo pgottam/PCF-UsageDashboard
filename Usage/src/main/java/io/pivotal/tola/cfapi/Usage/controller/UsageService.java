@@ -18,11 +18,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import io.pivotal.tola.cfapi.Usage.configuration.FoundationsConfig;
@@ -30,13 +26,11 @@ import reactor.core.publisher.Mono;
 
 import lombok.Builder;
 
-@RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/api")
-public class UsageController {
+@Component
+public class UsageService {
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(UsageController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UsageService.class);
 
     private final String[] START_DATES = new String[] { "01-01", "04-01", "07-01", "10-01" };
     private final String[] END_DATES = new String[] { "03-31", "06-30", "09-30", "12-31" };
@@ -44,19 +38,6 @@ public class UsageController {
     @Autowired
     private FoundationsConfig config;
 
-    /**
-     * getFoundations - List all fundations available in an customer environment
-     */
-    @GetMapping(value = "/foundations")
-    public List<String> getFoundations(){
-        return config.getFoundationNames();
-    }
-
-
-    /**
-     * getOrgs - list all organizations for the foundation, exclude system
-     */
-    @GetMapping(value = "/orgs")
     public List<Organization> getOrgs(String foundation) {
         CloudFoundryOperations operations = config.getOperations(foundation);
 
@@ -65,18 +46,6 @@ public class UsageController {
 
 
         return orgs.block();
-
-    }
-
-    /**
-     * appUsage - One quarter usage for one organization
-     */
-    @GetMapping(value = "/org/{orgGuid}/appusage/{quarter}")
-    public OrgUsage appUsage(String foundation, @PathVariable String orgGuid, @PathVariable int quarter) {
-
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-
-        return appUsage(foundation, orgGuid, year, quarter);
 
     }
 
@@ -136,16 +105,6 @@ public class UsageController {
         return orgUsage;
     }
 
-    /**
-     * svcUsage - One quarter usage for one organization
-     */
-    @GetMapping(value = "/org/{orgGuid}/svcusage/{quarter}")
-    public SIUsage svcUsage(String foundation, @PathVariable String orgGuid, @PathVariable int quarter) {
-
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        return this.svcUsage(foundation, orgGuid, year, quarter);
-
-    }
 
     public SIUsage svcUsage(String foundation, String orgGuid, int year, int quarter) {
 
@@ -207,35 +166,6 @@ public class UsageController {
     }
 
 
-    /**
-     * appUsage - AppUsage by org and by quarter for the requested foundation
-     */
-    @GetMapping(value = "/appusage")
-    public FoundationUsage appUsage(String foundation) {
-
-        FoundationUsage foundationUsage = FoundationUsage.builder().name(foundation).build();
-        List<Organization> orgs = getOrgs(foundation);
-        for(Organization org: orgs) {
-            OrgUsage[] usage = appUsage(foundation, org.getGuid());
-            foundationUsage.addOrgYearlyUsage(org, usage);
-        }
-        return foundationUsage;
-
-    }
-
-
-    //////////////////////////////////////////////////////////////////////
-    // Helper methods
-    //////////////////////////////////////////////////////////////////////
-
-    private OrgUsage[] appUsage(String foundation, @PathVariable String orgGuid) {
-        OrgUsage[] orgUsages = new OrgUsage[4];
-        for(int i=0; i < orgUsages.length; i++) {
-            orgUsages[i] = appUsage(foundation, orgGuid, i+1);
-        }
-        return orgUsages;
-
-    }
 
     private ResponseEntity<String> callAppUsageApi(String foundation, String orgGuid, int year, int quarter) {
 

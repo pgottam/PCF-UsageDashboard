@@ -23,7 +23,7 @@ public class DateUtils {
 
         while(count < noOfQuarters) {
 
-            quarters.add(currentYear + "-" + currentQuarter);
+            quarters.add(currentYear + "-Q" + currentQuarter);
 
             if (currentQuarter == 1) {
                 currentQuarter = 4;

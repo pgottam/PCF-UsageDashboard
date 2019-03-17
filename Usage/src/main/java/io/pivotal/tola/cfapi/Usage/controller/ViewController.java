@@ -24,7 +24,7 @@ public class ViewController {
     private FoundationsConfig config;
 
     @Autowired
-    private UsageController usageController;
+    private UsageService usageService;
 
     @GetMapping("/foundations")
     public String foundations(Model model){
@@ -43,7 +43,7 @@ public class ViewController {
     public String foundationAppUsage(String foundation, Model model){
 
         final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
-        foundationOrgMap.put(foundation, usageController.getOrgs(foundation));
+        foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
         model.addAttribute("quarters", new DateUtils().getPastQuarters(4));
 
@@ -54,7 +54,7 @@ public class ViewController {
     public String foundationSvcUsage(String foundation, Model model){
 
         final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
-        foundationOrgMap.put(foundation, usageController.getOrgs(foundation));
+        foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
         model.addAttribute("quarters", new DateUtils().getPastQuarters(4));
 
@@ -68,11 +68,11 @@ public class ViewController {
         model.addAttribute("orgName", orgName);
         model.addAttribute("foundation", foundation);
 
-        String[] d = yearQuarter.split("-");
+        String[] d = yearQuarter.split("-Q");
         int year = Integer.parseInt(d[0]);
         int quarter = Integer.parseInt(d[1]);
 
-        model.addAttribute("orgAppUsage", usageController.appUsage(foundation,orgGuid, year, quarter));
+        model.addAttribute("orgAppUsage", usageService.appUsage(foundation,orgGuid, year, quarter));
 
         return "orgappusage";
     }
@@ -83,11 +83,11 @@ public class ViewController {
         model.addAttribute("orgName", orgName);
         model.addAttribute("foundation", foundation);
 
-        String[] d = yearQuarter.split("-");
+        String[] d = yearQuarter.split("-Q");
         int year = Integer.parseInt(d[0]);
         int quarter = Integer.parseInt(d[1]);
 
-        model.addAttribute("orgSvcUsage", usageController.svcUsage(foundation,orgGuid, year, quarter));
+        model.addAttribute("orgSvcUsage", usageService.svcUsage(foundation,orgGuid, year, quarter));
 
         return "orgsvcusage";
     }
