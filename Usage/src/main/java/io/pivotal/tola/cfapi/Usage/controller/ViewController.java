@@ -73,6 +73,7 @@ public class ViewController {
         int quarter = Integer.parseInt(d[1]);
 
         model.addAttribute("orgAppUsage", usageService.appUsage(foundation,orgGuid, year, quarter));
+        model.addAttribute("yearQuarter", yearQuarter);
 
         return "orgappusage";
     }
@@ -88,6 +89,7 @@ public class ViewController {
         int quarter = Integer.parseInt(d[1]);
 
         model.addAttribute("orgSvcUsage", usageService.svcUsage(foundation,orgGuid, year, quarter));
+        model.addAttribute("yearQuarter", yearQuarter);
 
         return "orgsvcusage";
     }
