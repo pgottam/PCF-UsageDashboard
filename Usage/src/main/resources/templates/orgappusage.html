@@ -22,7 +22,7 @@
             <th>Total Apps</th>
             <th>Total Ais</th>
             <th>Total Mb per Ais</th>
-            <th>Ai Duration in Secs</th>
+            <th>Avg AI Count</th>
         </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
             <td th:text="${orgAppUsage.totalApps}">Total Apps</td>
             <td th:text="${orgAppUsage.totalAis}">Total Ais</td>
             <td th:text="${orgAppUsage.totalMbPerAis}">Total Mb per Ais</td>
-            <td th:text="${orgAppUsage.aiDurationInSecs}">Ai Duration in Secs</td>
+            <td th:text="${orgAppUsage.aiDurationInSecs}">Avg AI Count</td>
         </tr>
         </tbody>
     </table>
@@ -44,7 +44,7 @@
             <th>Total Apps</th>
             <th>Total Ais</th>
             <th>Total Mb per Ais</th>
-            <th>Ai Duration in Secs</th>
+            <th>Avg AI Count</th>
         </tr>
         </thead>
         <tbody>
@@ -53,7 +53,7 @@
             <td th:text="${spaceUsageEntry.value.totalApps}">Total Apps</td>
             <td th:text="${spaceUsageEntry.value.totalAis}">Total Ais</td>
             <td th:text="${spaceUsageEntry.value.totalMbPerAis}">Total Mb per Ais</td>
-            <td th:text="${spaceUsageEntry.value.aiDurationInSecs}">Ai Duration in Secs</td>
+            <td th:text="${spaceUsageEntry.value.aiDurationInSecs}">Avg AI Count</td>
         </tr>
         </tbody>
     </table>
@@ -66,7 +66,7 @@
             <th>Space Name</th>
             <th>Total Ais</th>
             <th>Total Mb per Ais</th>
-            <th>Ai Duration in Secs</th>
+            <th>Avg AI Count</th>
         </tr>
         </thead>
         <tbody>
@@ -75,7 +75,7 @@
                 <td th:text="${auEntry.value.spaceName}">Space Name</td>
                 <td th:text="${auEntry.value.totalAis}">Total Ais</td>
                 <td th:text="${auEntry.value.totalMbPerAis}">Total Mb per Ais</td>
-                <td th:text="${auEntry.value.aiDurationInSecs}">Ai Duration in Secs</td>
+                <td th:text="${auEntry.value.aiDurationInSecs}">Avg AI Count</td>
             </tr>
 
         </tbody>

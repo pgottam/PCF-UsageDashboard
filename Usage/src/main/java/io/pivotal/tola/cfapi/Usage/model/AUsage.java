@@ -14,6 +14,6 @@ public class AUsage {
 
     private long totalAis;
     private long totalMbPerAis;
-    private long aiDurationInSecs;
+    private double aiDurationInSecs;
 
 }

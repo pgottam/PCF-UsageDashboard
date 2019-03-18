@@ -31,6 +31,10 @@ public class FoundationsConfig {
 	
 	private Map<String, FoundationConnection> foundationMap = new HashMap<String, FoundationConnection>();
 
+	private List<String> excludedOrgs = new ArrayList<>();
+
+	private List<String> excludedServices = new ArrayList<>();
+
 	@PostConstruct
 	public void init() {
 

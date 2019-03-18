@@ -20,7 +20,7 @@ public class OrgUsage {
     private long totalApps;
     private long totalAis;
     private long totalMbPerAis;
-    private long aiDurationInSecs;
+    private double aiDurationInSecs;
 
     @Builder.Default
     private Map<String, SpaceUsage> spaceUsage = new HashMap<>();
@@ -55,11 +55,11 @@ public class OrgUsage {
         return count;
     }
 
-    public long getAiDurationInSecs(){
+    public double getAiDurationInSecs(){
 
-        long count = 0L;
+        double count = 0L;
         if(spaceUsage != null && spaceUsage.size() > 0){
-            count = spaceUsage.values().stream().map(o-> o.getAiDurationInSecs()).mapToLong(Long::longValue).sum();
+            count = spaceUsage.values().stream().map(o-> o.getAiDurationInSecs()).mapToDouble(Double::doubleValue).sum();
         }
         return count;
     }

@@ -22,7 +22,7 @@
             <th>Org Name</th>
             <th>Total Services</th>
             <th>Total Sis</th>
-            <th>Si Duration in Secs</th>
+            <th>Avg SI Count</th>
         </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
             <td th:text="${orgName}">Org Name</td>
             <td th:text="${orgSvcUsage.totalSvcs}">Total Services</td>
             <td th:text="${orgSvcUsage.totalSis}">Total Sis</td>
-            <td th:text="${orgSvcUsage.siDurationInSecs}">Si Duration in Secs</td>
+            <td th:text="${orgSvcUsage.siDurationInSecs}">Avg SI Count</td>
         </tr>
         </tbody>
     </table>
@@ -44,7 +44,7 @@
             <th>Space Name </th>
             <th>Total Services</th>
             <th>Total Sis</th>
-            <th>Si Duration in Secs</th>
+            <th>Avg SI Count</th>
         </tr>
         </thead>
         <tbody>
@@ -52,7 +52,7 @@
             <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
             <td th:text="${spaceUsageEntry.value.totalSvcs}">Total Services</td>
             <td th:text="${spaceUsageEntry.value.totalSis}">Total Sis</td>
-            <td th:text="${spaceUsageEntry.value.siDurationInSecs}">Si Duration in Secs</td>
+            <td th:text="${spaceUsageEntry.value.siDurationInSecs}">Avg SI Count</td>
         </tr>
         </tbody>
     </table>
@@ -66,7 +66,7 @@
             <th>Space Name </th>
             <th>Service Name </th>
             <th>Service Instance Name</th>
-            <th>Si Duration in Secs</th>
+            <th>Avg SI Count</th>
         </tr>
         </thead>
         <tbody>
@@ -74,7 +74,7 @@
             <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
             <td th:text="${spaceUsageEntry.value.serviceName}">Service Name</td>
             <td th:text="${spaceUsageEntry.value.serviceInstanceName}">Service Instance Name</td>
-            <td th:text="${spaceUsageEntry.value.durationInSecs}">Si Duration in Secs</td>
+            <td th:text="${spaceUsageEntry.value.durationInSecs}">Avg SI Count</td>
         </tr>
         </tbody>
     </table>

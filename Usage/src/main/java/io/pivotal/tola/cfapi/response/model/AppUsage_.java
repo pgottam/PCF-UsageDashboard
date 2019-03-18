@@ -37,7 +37,7 @@ public class AppUsage_ {
     @JsonProperty("memory_in_mb_per_instance")
     private Integer memoryInMbPerInstance;
     @JsonProperty("duration_in_seconds")
-    private Integer durationInSeconds;
+    private Double durationInSeconds;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -132,16 +132,16 @@ public class AppUsage_ {
     }
 
     @JsonProperty("duration_in_seconds")
-    public Integer getDurationInSeconds() {
+    public Double getDurationInSeconds() {
         return durationInSeconds;
     }
 
     @JsonProperty("duration_in_seconds")
-    public void setDurationInSeconds(Integer durationInSeconds) {
+    public void setDurationInSeconds(Double durationInSeconds) {
         this.durationInSeconds = durationInSeconds;
     }
 
-    public AppUsage_ withDurationInSeconds(Integer durationInSeconds) {
+    public AppUsage_ withDurationInSeconds(double durationInSeconds) {
         this.durationInSeconds = durationInSeconds;
         return this;
     }
