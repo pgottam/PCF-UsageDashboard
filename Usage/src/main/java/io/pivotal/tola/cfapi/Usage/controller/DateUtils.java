@@ -12,12 +12,53 @@ public class DateUtils {
     private final String[] START_DATES = new String[] { "01-01", "04-01", "07-01", "10-01"};
     private final String[] END_DATES = new String[] { "03-31", "06-30", "09-30", "12-31" };
 
-    public List<String> getPastQuarters(int noOfQuarters){
+    public List<String> getQuartersInCurrentYear(){
+        List<String> quarters = new ArrayList<>();
+        int year = this.getYear();
+        for(int i=0; i < 4; i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(year).append("-Q").append(i+1);
+            quarters.add(sb.toString());
+        }
+        return quarters;
+    }
+
+    public List<String> getElapsedQuartersInCurrentYear(){
 
         List<String> quarters = new ArrayList<String>();
 
         int currentYear = getYear();
-        int currentQuarter = getQuarter(currentYear, getCurrentDate());
+        int currentQuarter = getQuarter(currentYear, this.getCurrentDate());
+
+        int count = 0;
+
+        while(count < 4) {
+
+            quarters.add(currentYear + "-Q" + currentQuarter);
+
+            if (currentQuarter == 1) {
+               break;
+            } else{
+                currentQuarter --;
+            }
+
+            count ++;
+
+        }
+
+        return quarters;
+    }
+
+    public List<String> getPastQuarters(int noOfQuarters){
+        return this.getPastQuarters(noOfQuarters, this.getCurrentDate());
+    }
+
+    public List<String> getPastQuarters(int noOfQuarters, Date d){
+
+        List<String> quarters = new ArrayList<String>();
+
+        int currentYear = getYear();
+        int currentQuarter = getQuarter(currentYear, d);
 
         int count = 0;
 
@@ -49,7 +90,7 @@ public class DateUtils {
     public Date getCurrentDate(){
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
@@ -82,5 +123,4 @@ public class DateUtils {
 
         return quarter;
     }
-
 }

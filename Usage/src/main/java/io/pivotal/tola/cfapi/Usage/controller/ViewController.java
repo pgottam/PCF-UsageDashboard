@@ -1,7 +1,11 @@
 package io.pivotal.tola.cfapi.Usage.controller;
 
 import io.pivotal.tola.cfapi.Usage.configuration.FoundationsConfig;
+import io.pivotal.tola.cfapi.Usage.model.OrgUsage;
 import io.pivotal.tola.cfapi.Usage.model.Organization;
+import io.pivotal.tola.cfapi.Usage.model.SIUsage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +30,9 @@ public class ViewController {
     @Autowired
     private UsageService usageService;
 
+    private static final Logger LOG = LoggerFactory.getLogger(ViewController.class);
+
+
     @GetMapping("/foundations")
     public String foundations(Model model){
 
@@ -45,7 +52,34 @@ public class ViewController {
         final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
         foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
-        model.addAttribute("quarters", new DateUtils().getPastQuarters(4));
+
+        List<String> quarters = new DateUtils().getQuartersInCurrentYear();
+        model.addAttribute("quarters", quarters);
+
+        Map<String, Map<String, OrgUsage>> quarterlyOrgUsageMap = new HashMap<>();
+
+        foundationOrgMap.values().forEach(v -> {
+            if(v != null && v.size() > 0){
+                v.stream().forEach(vi -> {
+                    LOG.info("Org GUID : " + vi.getGuid());
+                    LOG.info("Org Name : " + vi.getName());
+
+                    Map<String, OrgUsage> quarterlyOrgUsage = new HashMap<>();
+                    quarters.stream().forEach(qu -> {
+
+                        String[] d = qu.split("-Q");
+                        int year = Integer.parseInt(d[0]);
+                        int quarter = Integer.parseInt(d[1]);
+
+                        quarterlyOrgUsage.put(qu, usageService.appUsage(foundation, vi.getGuid(), year, quarter));
+                    });
+
+                    quarterlyOrgUsageMap.put(vi.getName(), quarterlyOrgUsage);
+
+                });
+            }
+        });
+        model.addAttribute("quarterlyOrgUsageMap", quarterlyOrgUsageMap);
 
         return "foundationorgapp";
     }
@@ -56,7 +90,34 @@ public class ViewController {
         final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
         foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
-        model.addAttribute("quarters", new DateUtils().getPastQuarters(4));
+
+        List<String> quarters = new DateUtils().getQuartersInCurrentYear();
+        model.addAttribute("quarters", quarters);
+
+        Map<String, Map<String, SIUsage>> quarterlyOrgUsageMap = new HashMap<>();
+
+        foundationOrgMap.values().forEach(v -> {
+            if(v != null && v.size() > 0){
+                v.stream().forEach(vi -> {
+                    LOG.info("Org GUID : " + vi.getGuid());
+                    LOG.info("Org Name : " + vi.getName());
+
+                    Map<String, SIUsage> quarterlyOrgUsage = new HashMap<>();
+                    quarters.stream().forEach(qu -> {
+
+                        String[] d = qu.split("-Q");
+                        int year = Integer.parseInt(d[0]);
+                        int quarter = Integer.parseInt(d[1]);
+
+                        quarterlyOrgUsage.put(qu, usageService.svcUsage(foundation, vi.getGuid(), year, quarter));
+                    });
+
+                    quarterlyOrgUsageMap.put(vi.getName(), quarterlyOrgUsage);
+
+                });
+            }
+        });
+        model.addAttribute("quarterlyOrgUsageMap", quarterlyOrgUsageMap);
 
 
         return "foundationorgsvc";
