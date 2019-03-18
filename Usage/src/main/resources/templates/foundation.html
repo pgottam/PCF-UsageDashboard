@@ -19,9 +19,9 @@
         <table class="table table-striped table-bordered table-sm">
             <tbody>
             <tr th:each="org: ${foundationEntry.value}">
-                <td th:text="'Foundation: ' + ${foundationEntry.key}"/>
-                <td><a class="btn btn-primary" th:href="@{'/view/appusage?foundation='+ ${foundationEntry.key}}">App Usage</a></td>
-                <td><a class="btn btn-primary" th:href="@{'/view/svcusage?foundation='+ ${foundationEntry.key}}">Service Usage</a></td>
+                <td style="width: 33.33%" th:text="'Foundation: ' + ${foundationEntry.key}"/>
+                <td style="width: 33.33%"><a class="btn btn-primary" th:href="@{'/view/appusage?foundation='+ ${foundationEntry.key}}">App Usage</a></td>
+                <td style="width: 33.33%"><a class="btn btn-primary" th:href="@{'/view/svcusage?foundation='+ ${foundationEntry.key}}">Service Usage</a></td>
             </tr>
             </tbody>
         </table>
