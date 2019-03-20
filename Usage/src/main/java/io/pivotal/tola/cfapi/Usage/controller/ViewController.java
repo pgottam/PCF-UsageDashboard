@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -49,14 +50,14 @@ public class ViewController {
     @GetMapping("/appusage")
     public String foundationAppUsage(String foundation, Model model){
 
-        final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
+        final Map<String, List<Organization>> foundationOrgMap = new LinkedHashMap<>();
         foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
 
         List<String> quarters = new DateUtils().getQuartersInCurrentYear();
         model.addAttribute("quarters", quarters);
 
-        Map<String, Map<String, OrgUsage>> quarterlyOrgUsageMap = new HashMap<>();
+        Map<String, Map<String, OrgUsage>> quarterlyOrgUsageMap = new LinkedHashMap<>();
 
         foundationOrgMap.values().forEach(v -> {
             if(v != null && v.size() > 0){
@@ -64,7 +65,7 @@ public class ViewController {
                     LOG.info("Org GUID : " + vi.getGuid());
                     LOG.info("Org Name : " + vi.getName());
 
-                    Map<String, OrgUsage> quarterlyOrgUsage = new HashMap<>();
+                    Map<String, OrgUsage> quarterlyOrgUsage = new LinkedHashMap<>();
                     quarters.stream().forEach(qu -> {
 
                         String[] d = qu.split("-Q");
@@ -87,14 +88,14 @@ public class ViewController {
     @GetMapping("/svcusage")
     public String foundationSvcUsage(String foundation, Model model){
 
-        final Map<String, List<Organization>> foundationOrgMap = new HashMap<>();
+        final Map<String, List<Organization>> foundationOrgMap = new LinkedHashMap<>();
         foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
 
         List<String> quarters = new DateUtils().getQuartersInCurrentYear();
         model.addAttribute("quarters", quarters);
 
-        Map<String, Map<String, SIUsage>> quarterlyOrgUsageMap = new HashMap<>();
+        Map<String, Map<String, SIUsage>> quarterlyOrgUsageMap = new LinkedHashMap<>();
 
         foundationOrgMap.values().forEach(v -> {
             if(v != null && v.size() > 0){
@@ -102,7 +103,7 @@ public class ViewController {
                     LOG.info("Org GUID : " + vi.getGuid());
                     LOG.info("Org Name : " + vi.getName());
 
-                    Map<String, SIUsage> quarterlyOrgUsage = new HashMap<>();
+                    Map<String, SIUsage> quarterlyOrgUsage = new LinkedHashMap<>();
                     quarters.stream().forEach(qu -> {
 
                         String[] d = qu.split("-Q");
