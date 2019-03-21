@@ -34,9 +34,6 @@ public class UsageService {
 
     private final String[] START_DATES = new String[] { "01-01", "04-01", "07-01", "10-01" };
     private final String[] END_DATES = new String[] { "03-31", "06-30", "09-30", "12-31" };
-    private final int[] NO_OF_DAYS_NON_LEAP_YEAR = new int[] {90, 91, 92, 92};
-    private final int[] NO_OF_DAYS_LEAP_YEAR = new int[] {91, 91, 92, 92};
-
 
     @Autowired
     private FoundationsConfig config;
@@ -66,6 +63,7 @@ public class UsageService {
             LOG.error("Encountered IO exception response to AppUsage", e);
         }
 
+        DateUtils dt = new DateUtils();
 
         OrgUsage orgUsage = OrgUsage.builder().orgGuid(orgGuid).year(year).quarter(quarter).build();
 
@@ -82,12 +80,8 @@ public class UsageService {
                 su.setTotalApps(UsageUtils.getUniqueApps(v).size());
                 su.setTotalAis(v.size());
                 su.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(v));
+                su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v, dt.getDayInQuarter(quarter)));
 
-                if(year % 4 == 0){
-                    su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v, NO_OF_DAYS_LEAP_YEAR[quarter-1]));
-                }else{
-                    su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v, NO_OF_DAYS_NON_LEAP_YEAR[quarter-1]));
-                }
 
                 Map<String, List<AppUsage_>> appMap = v.stream().collect(Collectors.groupingBy(AppUsage_::getAppName));
                 appMap.forEach((ak, av) -> {
@@ -100,11 +94,7 @@ public class UsageService {
                         a.setAppName(av.get(0).getAppName());
                         a.setTotalAis(av.size());
                         a.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(av));
-                        if(year % 4 == 0) {
-                            a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av, NO_OF_DAYS_LEAP_YEAR[quarter-1]));
-                        }else{
-                            a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av, NO_OF_DAYS_NON_LEAP_YEAR[quarter-1]));
-                        }
+                        a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av, dt.getDayInQuarter(quarter)));
                         aUsageMap.put(ak + "-" + su.getSpaceName(), a);
                     }
                 });
@@ -140,6 +130,8 @@ public class UsageService {
         Map<String, SISpaceUsage> siSpaceUsageMap = new HashMap<>();
         Map<String, ServiceInstanceUsage> serviceInstanceUsageMap = new HashMap<>();
 
+        DateUtils dt = new DateUtils();
+
         siSpaceMap.forEach((k,v)->{
 
             if(v != null && v.size() > 0) {
@@ -148,11 +140,7 @@ public class UsageService {
                 su.setSpaceName(v.get(0).getSpaceName());
                 su.setTotalSis(v.size());
                 su.setTotalSvcs(UsageUtils.getUniqueServices(v).size());
-                if(year % 4 ==0) {
-                    su.setSiDurationInSecs(UsageUtils.computeTotalSIDurationInSecs(v, NO_OF_DAYS_LEAP_YEAR[quarter-1]));
-                }else{
-                    su.setSiDurationInSecs(UsageUtils.computeTotalSIDurationInSecs(v, NO_OF_DAYS_NON_LEAP_YEAR[quarter-1]));
-                }
+                su.setSiDurationInSecs(UsageUtils.computeTotalSIDurationInSecs(v, dt.getDayInQuarter(quarter)));
                 siSpaceUsageMap.put(k, su);
             }
 
@@ -166,11 +154,7 @@ public class UsageService {
 
                     final ServiceInstanceUsage su = ServiceInstanceUsage.builder().build();
                     su.setSpaceName(sv.getSpaceName());
-                    if(year % 4 ==0) {
-                        su.setDurationInSecs(sv.getDurationInSeconds() / (86400*NO_OF_DAYS_LEAP_YEAR[quarter-1]));
-                    }else{
-                        su.setDurationInSecs(sv.getDurationInSeconds() / (86400*NO_OF_DAYS_NON_LEAP_YEAR[quarter-1]));
-                    }
+                    su.setDurationInSecs(sv.getDurationInSeconds() / (86400* dt.getDayInQuarter(quarter)));
                     su.setServiceInstanceName(sv.getServiceInstanceName());
                     su.setServiceName(sv.getServiceName());
                     serviceInstanceUsageMap.put(sv.getServiceInstanceGuid(), su);

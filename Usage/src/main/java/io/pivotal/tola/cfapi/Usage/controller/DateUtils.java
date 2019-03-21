@@ -1,16 +1,37 @@
 package io.pivotal.tola.cfapi.Usage.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DateUtils {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DateUtils.class);
+
     private final String[] START_DATES = new String[] { "01-01", "04-01", "07-01", "10-01"};
     private final String[] END_DATES = new String[] { "03-31", "06-30", "09-30", "12-31" };
+
+    public long getDayInQuarter(int quarter){
+
+        Date currentDate = this.getCurrentDate();
+        Date start = this.getStartDateofQuarter(quarter);
+
+        long diffInMillies = currentDate.getTime()-start.getTime();
+        if(diffInMillies < 0){
+            diffInMillies = 0;
+        }
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        return diff;
+
+    }
 
     public List<String> getQuartersInCurrentYear(){
         List<String> quarters = new ArrayList<>();
@@ -97,6 +118,18 @@ public class DateUtils {
         return c.getTime();
     }
 
+    public Date getStartDateofQuarter(int quarter){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = null;
+        try {
+            start = sdf.parse(getYear() + "-" + START_DATES[quarter - 1]);
+        }catch(ParseException pe){
+            LOG.error("Parsing Exception");
+        }
+        return start;
+    }
+
     public int getQuarter(int year , Date d){
 
         int quarter = 0;
@@ -116,7 +149,7 @@ public class DateUtils {
                 }
             }
             catch(ParseException pe){
-                System.out.println("Parsing Exception");
+                LOG.error("Parsing Exception");
             }
 
         }

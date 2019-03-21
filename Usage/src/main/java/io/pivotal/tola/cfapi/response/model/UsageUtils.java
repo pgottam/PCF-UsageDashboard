@@ -19,11 +19,11 @@ public class UsageUtils {
         return au.stream().map(o-> o.getMemoryInMbPerInstance()).mapToLong(Integer::longValue).sum();
     }
 
-    public static double computeTotalDurationInSecs(List<AppUsage_> au, int days){
+    public static double computeTotalDurationInSecs(List<AppUsage_> au, long days){
         return (au.stream().map(o->o.getDurationInSeconds()).mapToDouble(Double::doubleValue).sum())/(86400*days);
     }
 
-    public static double computeTotalSIDurationInSecs(List<ServiceUsage_> si, int days){
+    public static double computeTotalSIDurationInSecs(List<ServiceUsage_> si, long days){
         return (si.stream().map(o->o.getDurationInSeconds()).mapToDouble(Double::doubleValue).sum())/(86400*days);
     }
 
