@@ -89,7 +89,7 @@ public class UsageService {
                     su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v, NO_OF_DAYS_NON_LEAP_YEAR[quarter-1]));
                 }
 
-                Map<String, List<AppUsage_>> appMap = v.stream().collect(Collectors.groupingBy(AppUsage_::getAppGuid));
+                Map<String, List<AppUsage_>> appMap = v.stream().collect(Collectors.groupingBy(AppUsage_::getAppName));
                 appMap.forEach((ak, av) -> {
 
                     if(av != null && av.size() > 0) {
@@ -105,7 +105,7 @@ public class UsageService {
                         }else{
                             a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av, NO_OF_DAYS_NON_LEAP_YEAR[quarter-1]));
                         }
-                        aUsageMap.put(ak, a);
+                        aUsageMap.put(ak + "-" + su.getSpaceName(), a);
                     }
                 });
                 spaceUsageMap.put(k, su);

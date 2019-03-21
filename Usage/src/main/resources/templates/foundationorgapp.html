@@ -38,7 +38,7 @@
                 <td th:text="${quarterlyOrgUsageEntry.value.totalApps}">Total Apps</td>
                 <td th:text="${quarterlyOrgUsageEntry.value.totalAis}">Total Ais</td>
                 <td th:text="${quarterlyOrgUsageEntry.value.totalMbPerAis}">Total Mb per Ais</td>
-                <td th:text="${quarterlyOrgUsageEntry.value.aiDurationInSecs}">Avg AI Count</td>
+                <td th:text="${#numbers.formatDecimal(quarterlyOrgUsageEntry.value.aiDurationInSecs,3,3)}">Avg AI Count</td>
             </tr>
             </tbody>
         </table>

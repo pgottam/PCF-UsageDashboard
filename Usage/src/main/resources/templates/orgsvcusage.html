@@ -30,7 +30,7 @@
             <td th:text="${orgName}">Org Name</td>
             <td th:text="${orgSvcUsage.totalSvcs}">Total Services</td>
             <td th:text="${orgSvcUsage.totalSis}">Total Sis</td>
-            <td th:text="${orgSvcUsage.siDurationInSecs}">Avg SI Count</td>
+            <td th:text="${#numbers.formatDecimal(orgSvcUsage.siDurationInSecs,2,3)}">Avg SI Count</td>
         </tr>
         </tbody>
     </table>
@@ -52,7 +52,7 @@
             <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
             <td th:text="${spaceUsageEntry.value.totalSvcs}">Total Services</td>
             <td th:text="${spaceUsageEntry.value.totalSis}">Total Sis</td>
-            <td th:text="${spaceUsageEntry.value.siDurationInSecs}">Avg SI Count</td>
+            <td th:text="${#numbers.formatDecimal(spaceUsageEntry.value.siDurationInSecs,2,3)}">Avg SI Count</td>
         </tr>
         </tbody>
     </table>
@@ -74,7 +74,7 @@
             <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
             <td th:text="${spaceUsageEntry.value.serviceName}">Service Name</td>
             <td th:text="${spaceUsageEntry.value.serviceInstanceName}">Service Instance Name</td>
-            <td th:text="${spaceUsageEntry.value.durationInSecs}">Avg SI Count</td>
+            <td th:text="${#numbers.formatDecimal(spaceUsageEntry.value.durationInSecs,2,3)}">Avg SI Count</td>
         </tr>
         </tbody>
     </table>

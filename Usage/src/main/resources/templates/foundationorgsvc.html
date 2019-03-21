@@ -36,7 +36,7 @@
                     </td>
                     <td th:text="${quarterlyOrgUsageEntry.value.totalSvcs}">Total Services</td>
                     <td th:text="${quarterlyOrgUsageEntry.value.totalSis}">Total Sis</td>
-                    <td th:text="${quarterlyOrgUsageEntry.value.siDurationInSecs}">Avg SI Count</td>
+                    <td th:text="${#numbers.formatDecimal(quarterlyOrgUsageEntry.value.siDurationInSecs,3,3)}">Avg SI Count</td>
                 </tr>
                 </tbody>
             </table>
