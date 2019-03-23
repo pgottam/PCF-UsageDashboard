@@ -1,9 +1,11 @@
-package io.pivotal.tola.cfapi.Usage.controller;
+package io.pivotal.tola.cfapi.usage.controller;
 
-import io.pivotal.tola.cfapi.Usage.configuration.FoundationsConfig;
-import io.pivotal.tola.cfapi.Usage.model.OrgUsage;
-import io.pivotal.tola.cfapi.Usage.model.Organization;
-import io.pivotal.tola.cfapi.Usage.model.SIUsage;
+import io.pivotal.tola.cfapi.usage.configuration.FoundationsConfig;
+import io.pivotal.tola.cfapi.usage.model.OrgUsage;
+import io.pivotal.tola.cfapi.usage.model.Organization;
+import io.pivotal.tola.cfapi.usage.model.SIUsage;
+import io.pivotal.tola.cfapi.usage.service.UsageService;
+import io.pivotal.tola.cfapi.usage.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class ViewController {
         foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
 
-        List<String> quarters = new DateUtils().getQuartersInCurrentYear();
+        List<String> quarters = new DateUtils().getElapsedQuartersInCurrentYear();
         model.addAttribute("quarters", quarters);
 
         Map<String, Map<String, OrgUsage>> quarterlyOrgUsageMap = new LinkedHashMap<>();
@@ -92,7 +93,7 @@ public class ViewController {
         foundationOrgMap.put(foundation, usageService.getOrgs(foundation));
         model.addAttribute("foundations", foundationOrgMap);
 
-        List<String> quarters = new DateUtils().getQuartersInCurrentYear();
+        List<String> quarters = new DateUtils().getElapsedQuartersInCurrentYear();
         model.addAttribute("quarters", quarters);
 
         Map<String, Map<String, SIUsage>> quarterlyOrgUsageMap = new LinkedHashMap<>();

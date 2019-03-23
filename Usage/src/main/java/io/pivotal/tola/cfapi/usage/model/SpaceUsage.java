@@ -1,7 +1,9 @@
-package io.pivotal.tola.cfapi.Usage.model;
+package io.pivotal.tola.cfapi.usage.model;
 
 import lombok.Builder;
 import lombok.Data;
+
+import java.text.DecimalFormat;
 
 @Data
 @Builder
@@ -14,5 +16,13 @@ public class SpaceUsage {
     private long totalAis;
     private long totalMbPerAis;
     private double aiDurationInSecs;
+    private String avgAICount;
+
+    public String getAvgAICount(){
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        return df.format(this.getAiDurationInSecs());
+
+    }
 
 }

@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage;
+package io.pivotal.tola.cfapi.usage;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

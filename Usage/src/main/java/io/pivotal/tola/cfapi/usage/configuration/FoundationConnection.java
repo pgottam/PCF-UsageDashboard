@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage.configuration;
+package io.pivotal.tola.cfapi.usage.configuration;
 
 import org.cloudfoundry.operations.DefaultCloudFoundryOperations;
 import org.cloudfoundry.reactor.ConnectionContext;

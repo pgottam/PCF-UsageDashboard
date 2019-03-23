@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage.controller;
+package io.pivotal.tola.cfapi.usage.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class DateUtils {
     public long getDayInQuarter(int quarter){
 
         Date currentDate = this.getCurrentDate();
-        Date start = this.getStartDateofQuarter(quarter);
+        Date start = this.getStartDateOfQuarter(quarter);
 
         long diffInMillies = currentDate.getTime()-start.getTime();
         if(diffInMillies < 0){
@@ -31,6 +31,19 @@ public class DateUtils {
 
         return diff;
 
+    }
+
+    public long getNoOfDaysElapsed(String start, String end){
+
+        Date startDate = this.getDayStart(start);
+        Date endDate = this.getDayEnd(end);
+
+        long diffInMillies = endDate.getTime()-startDate.getTime();
+        if(diffInMillies < 0){
+            diffInMillies = 0;
+        }
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return diff;
     }
 
     public List<String> getQuartersInCurrentYear(){
@@ -70,42 +83,52 @@ public class DateUtils {
         return quarters;
     }
 
-    public List<String> getPastQuarters(int noOfQuarters){
-        return this.getPastQuarters(noOfQuarters, this.getCurrentDate());
-    }
-
-    public List<String> getPastQuarters(int noOfQuarters, Date d){
-
-        List<String> quarters = new ArrayList<String>();
-
-        int currentYear = getYear();
-        int currentQuarter = getQuarter(currentYear, d);
-
-        int count = 0;
-
-        while(count < noOfQuarters) {
-
-            quarters.add(currentYear + "-Q" + currentQuarter);
-
-            if (currentQuarter == 1) {
-                currentQuarter = 4;
-                currentYear --;
-            } else{
-                currentQuarter --;
-            }
-
-            count ++;
-
-        }
-
-        return quarters;
-
-    }
-
     public int getYear(){
 
         Calendar c = Calendar.getInstance();
        return c.get(Calendar.YEAR);
+    }
+
+    public Date getDayStart(String date){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = null;
+        try {
+            if(date != null) {
+                start = sdf.parse(date);
+            }
+        }catch(ParseException pe){
+            LOG.error("Parsing Exception");
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(start);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
+    public Date getDayEnd(String date){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date end = null;
+        try {
+            if(date != null) {
+                end = sdf.parse(date);
+            }
+        }catch(ParseException pe){
+            LOG.error("Parsing Exception");
+        }
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(end);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 999);
+        return c.getTime();
     }
 
     public Date getCurrentDate(){
@@ -118,7 +141,7 @@ public class DateUtils {
         return c.getTime();
     }
 
-    public Date getStartDateofQuarter(int quarter){
+    public Date getStartDateOfQuarter(int quarter){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date start = null;
@@ -156,4 +179,10 @@ public class DateUtils {
 
         return quarter;
     }
+
+    public String converttoyyyyMMdd(Date d){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(d);
+    }
+
 }

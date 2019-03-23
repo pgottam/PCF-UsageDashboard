@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage.model;
+package io.pivotal.tola.cfapi.usage.model;
 
 import lombok.Builder;
 import lombok.Data;

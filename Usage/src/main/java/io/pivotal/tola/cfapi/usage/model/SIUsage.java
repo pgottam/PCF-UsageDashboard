@@ -1,8 +1,9 @@
-package io.pivotal.tola.cfapi.Usage.model;
+package io.pivotal.tola.cfapi.usage.model;
 
 import lombok.Builder; 
 import lombok.Data;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class SIUsage {
     private long totalSvcs;
     private long totalSis;
     private double siDurationInSecs;
+    private String avgSICount;
 
     @Builder.Default
     private Map<String, SISpaceUsage> siSpaceUsage = new HashMap<>();
@@ -49,6 +51,13 @@ public class SIUsage {
             count = siSpaceUsage.values().stream().map(o-> o.getSiDurationInSecs()).mapToDouble(Double::doubleValue).sum();
         }
         return count;
+    }
+
+    public String getAvgSICount(){
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        return df.format(this.getSiDurationInSecs());
+
     }
 
 

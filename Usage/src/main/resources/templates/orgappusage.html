@@ -31,7 +31,7 @@
             <td th:text="${orgAppUsage.totalApps}">Total Apps</td>
             <td th:text="${orgAppUsage.totalAis}">Total Ais</td>
             <td th:text="${orgAppUsage.totalMbPerAis}">Total Mb per Ais</td>
-            <td th:text="${#numbers.formatDecimal(orgAppUsage.aiDurationInSecs,2,3)}">Avg AI Count</td>
+            <td th:text="${orgAppUsage.avgAICount}">Avg AI Count</td>
         </tr>
         </tbody>
     </table>
@@ -53,7 +53,7 @@
             <td th:text="${spaceUsageEntry.value.totalApps}">Total Apps</td>
             <td th:text="${spaceUsageEntry.value.totalAis}">Total Ais</td>
             <td th:text="${spaceUsageEntry.value.totalMbPerAis}">Total Mb per Ais</td>
-            <td th:text="${#numbers.formatDecimal(spaceUsageEntry.value.aiDurationInSecs,2,3)}">Avg AI Count</td>
+            <td th:text="${spaceUsageEntry.value.avgAICount}">Avg AI Count</td>
         </tr>
         </tbody>
     </table>
@@ -75,7 +75,7 @@
                 <td th:text="${auEntry.value.spaceName}">Space Name</td>
                 <td th:text="${auEntry.value.totalAis}">Total Ais</td>
                 <td th:text="${auEntry.value.totalMbPerAis}">Total Mb per Ais</td>
-                <td th:text="${#numbers.formatDecimal(auEntry.value.aiDurationInSecs,2,3)}">Avg AI Count</td>
+                <td th:text="${auEntry.value.avgAICount}">Avg AI Count</td>
             </tr>
 
         </tbody>

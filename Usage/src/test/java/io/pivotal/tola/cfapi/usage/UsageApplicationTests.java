@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage;
+package io.pivotal.tola.cfapi.usage;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

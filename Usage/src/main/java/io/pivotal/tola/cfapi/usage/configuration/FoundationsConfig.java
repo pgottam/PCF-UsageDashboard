@@ -1,4 +1,4 @@
-package io.pivotal.tola.cfapi.Usage.configuration;
+package io.pivotal.tola.cfapi.usage.configuration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
