@@ -1,6 +1,0 @@
----
-applications:
-  - name: platformSummary
-    memory: 768M
-    instances: 1
-    buildpack: staticfile_buildpack
