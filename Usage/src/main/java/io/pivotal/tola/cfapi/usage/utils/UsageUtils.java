@@ -39,6 +39,6 @@ public class UsageUtils {
     }
 
     public static List<ServiceUsage_> getUniqueServices(List<ServiceUsage_> si){
-        return si.stream().filter(UsageUtils.uniqueApp(p->p.getServiceGuid())).collect(Collectors.toList());
+        return si.stream().filter(UsageUtils.uniqueApp(p->p.getServiceInstanceGuid())).collect(Collectors.toList());
     }
 }
