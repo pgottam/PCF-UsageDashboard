@@ -13,8 +13,8 @@ public class SpaceUsage {
     private String spaceName;
 
     private long totalApps;
-    private long totalAis;
     private long totalMbPerAis;
+    private String totalGbPerAis;
     private double aiDurationInSecs;
     private String avgAICount;
 
@@ -22,6 +22,13 @@ public class SpaceUsage {
 
         DecimalFormat df = new DecimalFormat("#.###");
         return df.format(this.getAiDurationInSecs());
+
+    }
+
+    public String getTotalGbPerAis(){
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        return df.format(this.getTotalMbPerAis() / 1024);
 
     }
 

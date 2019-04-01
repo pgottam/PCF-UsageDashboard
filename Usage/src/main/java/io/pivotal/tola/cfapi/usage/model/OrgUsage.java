@@ -17,8 +17,8 @@ public class OrgUsage {
     private int quarter;
 
     private long totalApps;
-    private long totalAis;
     private long totalMbPerAis;
+    private String totalGbPerAis;
     private double aiDurationInSecs;
     private String avgAICount;
 
@@ -33,15 +33,6 @@ public class OrgUsage {
         long count = 0L;
         if (spaceUsage != null && spaceUsage.size() > 0) {
             count = spaceUsage.values().stream().map(o -> o.getTotalApps()).mapToLong(Long::longValue).sum();
-        }
-        return count;
-    }
-
-    public long getTotalAis() {
-
-        long count = 0L;
-        if (spaceUsage != null && spaceUsage.size() > 0) {
-            count = spaceUsage.values().stream().map(o -> o.getTotalAis()).mapToLong(Long::longValue).sum();
         }
         return count;
     }
@@ -68,6 +59,13 @@ public class OrgUsage {
 
         DecimalFormat df = new DecimalFormat("#.###");
         return df.format(this.getAiDurationInSecs());
+
+    }
+
+    public String getTotalGbPerAis(){
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        return df.format(this.getTotalMbPerAis() / 1024);
 
     }
 

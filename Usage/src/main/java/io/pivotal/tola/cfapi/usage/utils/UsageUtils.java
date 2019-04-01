@@ -35,7 +35,7 @@ public class UsageUtils {
     }
 
     public static List<AppUsage_> getUniqueApps(List<AppUsage_> au){
-        return au.stream().filter(UsageUtils.uniqueApp(p -> p.getAppGuid())).collect(Collectors.toList());
+        return au.stream().filter(UsageUtils.uniqueApp(p -> p.getAppName())).collect(Collectors.toList());
     }
 
     public static List<ServiceUsage_> getUniqueServices(List<ServiceUsage_> si){

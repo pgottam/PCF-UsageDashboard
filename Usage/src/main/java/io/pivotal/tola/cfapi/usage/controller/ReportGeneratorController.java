@@ -75,16 +75,14 @@ public class ReportGeneratorController {
             Row headerRow = sheet.createRow(1);
             headerRow.createCell(0).setCellValue("Org Name");
             headerRow.createCell(1).setCellValue("Total Apps");
-            headerRow.createCell(2).setCellValue("Total Ais");
-            headerRow.createCell(3).setCellValue("Total Mb per Ais");
-            headerRow.createCell(4).setCellValue("Avg AI Count");
+            headerRow.createCell(2).setCellValue("Total Gb per Ais");
+            headerRow.createCell(3).setCellValue("Avg AI Count");
 
             Row dataRow = sheet.createRow(2);
             dataRow.createCell(0).setCellValue(org.getName());
             dataRow.createCell(1).setCellValue(orgUsage.getTotalApps());
-            dataRow.createCell(2).setCellValue(orgUsage.getTotalAis());
-            dataRow.createCell(3).setCellValue(orgUsage.getTotalMbPerAis());
-            dataRow.createCell(4).setCellValue(orgUsage.getAvgAICount());
+            dataRow.createCell(2).setCellValue(orgUsage.getTotalGbPerAis());
+            dataRow.createCell(3).setCellValue(orgUsage.getAvgAICount());
 
             sheet.setRowBreak(3);
             sheet.setRowBreak(4);
@@ -99,9 +97,8 @@ public class ReportGeneratorController {
             headerRow = sheet.createRow(6);
             headerRow.createCell(0).setCellValue("Space Name");
             headerRow.createCell(1).setCellValue("Total Apps");
-            headerRow.createCell(2).setCellValue("Total Ais");
-            headerRow.createCell(3).setCellValue("Total Mb per Ais");
-            headerRow.createCell(4).setCellValue("Avg AI Count");
+            headerRow.createCell(2).setCellValue("Total Gb per Ais");
+            headerRow.createCell(3).setCellValue("Avg AI Count");
 
             int i = 7;
             for (Map.Entry<String, SpaceUsage> entry : orgUsage.getSpaceUsage().entrySet()) {
@@ -109,9 +106,8 @@ public class ReportGeneratorController {
                 dataRow = sheet.createRow(i);
                 dataRow.createCell(0).setCellValue(entry.getValue().getSpaceName());
                 dataRow.createCell(1).setCellValue(entry.getValue().getTotalApps());
-                dataRow.createCell(2).setCellValue(entry.getValue().getTotalAis());
-                dataRow.createCell(3).setCellValue(entry.getValue().getTotalMbPerAis());
-                dataRow.createCell(4).setCellValue(entry.getValue().getAvgAICount());
+                dataRow.createCell(2).setCellValue(entry.getValue().getTotalGbPerAis());
+                dataRow.createCell(3).setCellValue(entry.getValue().getAvgAICount());
                 i++;
             }
 
@@ -132,18 +128,16 @@ public class ReportGeneratorController {
             headerRow = sheet.createRow(i++);
             headerRow.createCell(0).setCellValue("Application Name");
             headerRow.createCell(1).setCellValue("Space Name");
-            headerRow.createCell(2).setCellValue("Total Ais");
-            headerRow.createCell(3).setCellValue("Total Mb per Ais");
-            headerRow.createCell(4).setCellValue("Avg AI Count");
+            headerRow.createCell(2).setCellValue("Total Gb per Ais");
+            headerRow.createCell(3).setCellValue("Avg AI Count");
 
             for (Map.Entry<String, AUsage> entry : orgUsage.getAUsage().entrySet()) {
 
                 dataRow = sheet.createRow(i);
                 dataRow.createCell(0).setCellValue(entry.getValue().getAppName());
                 dataRow.createCell(1).setCellValue(entry.getValue().getSpaceName());
-                dataRow.createCell(2).setCellValue(entry.getValue().getTotalAis());
-                dataRow.createCell(3).setCellValue(entry.getValue().getTotalMbPerAis());
-                dataRow.createCell(4).setCellValue(entry.getValue().getAvgAICount());
+                dataRow.createCell(2).setCellValue(entry.getValue().getTotalGbPerAis());
+                dataRow.createCell(3).setCellValue(entry.getValue().getAvgAICount());
                 i++;
             }
 

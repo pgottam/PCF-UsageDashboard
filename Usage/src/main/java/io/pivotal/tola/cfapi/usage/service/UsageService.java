@@ -95,7 +95,6 @@ public class UsageService {
                 su.setSpaceGuid(k);
                 su.setSpaceName(v.get(0).getSpaceName());
                 su.setTotalApps(UsageUtils.getUniqueApps(v).size());
-                su.setTotalAis(v.size());
                 su.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(v));
                 su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v, dt.getNoOfDaysElapsed(start, end)));
 
@@ -109,7 +108,6 @@ public class UsageService {
                         a.setSpaceName(su.getSpaceName());
                         a.setAppGuid(av.get(0).getAppGuid());
                         a.setAppName(av.get(0).getAppName());
-                        a.setTotalAis(av.size());
                         a.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(av));
                         a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av, dt.getNoOfDaysElapsed(start, end)));
                         aUsageMap.put(ak + "-" + su.getSpaceName(), a);

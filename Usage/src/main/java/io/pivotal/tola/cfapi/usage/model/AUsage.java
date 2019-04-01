@@ -14,10 +14,17 @@ public class AUsage {
     private String spaceGuid;
     private String spaceName;
 
-    private long totalAis;
     private long totalMbPerAis;
+    private String totalGbPerAis;
     private double aiDurationInSecs;
     private String avgAICount;
+
+    public String getTotalGbPerAis(){
+
+        DecimalFormat df = new DecimalFormat("#.###");
+        return df.format(this.getTotalMbPerAis() / 1024);
+
+    }
 
     public String getAvgAICount(){
 
