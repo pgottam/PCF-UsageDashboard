@@ -22,7 +22,7 @@ public class AUsage {
     public String getTotalGbPerAis(){
 
         DecimalFormat df = new DecimalFormat("#.###");
-        return df.format(this.getTotalMbPerAis() / 1024);
+        return df.format( (double) this.getTotalMbPerAis() / 1024);
 
     }
 
