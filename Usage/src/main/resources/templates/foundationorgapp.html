@@ -42,7 +42,7 @@
                 <tr>
                     <th>Quarter</th>
                     <th>Total Apps</th>
-                    <th>Total Gb per Ais</th>
+                    <th>Total Approx. Used Memory (GB)</th>
                     <th>Avg AI Count</th>
                 </tr>
                 </thead>
@@ -54,7 +54,7 @@
                            th:text="${quarterlyOrgUsageEntry.key}"></a>
                     </td>
                     <td th:text="${quarterlyOrgUsageEntry.value.totalApps}">Total Apps</td>
-                    <td th:text="${quarterlyOrgUsageEntry.value.totalGbPerAis}">Total Gb per Ais</td>
+                    <td th:text="${quarterlyOrgUsageEntry.value.totalGbPerAis}">Total Approx. Used Memory (GB)</td>
                     <td th:text="${quarterlyOrgUsageEntry.value.avgAICount}">Avg AI Count</td>
                 </tr>
                 </tbody>

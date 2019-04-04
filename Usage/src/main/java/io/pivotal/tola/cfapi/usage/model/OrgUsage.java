@@ -17,7 +17,7 @@ public class OrgUsage {
     private int quarter;
 
     private long totalApps;
-    private long totalMbPerAis;
+    private double totalMbPerAis;
     private String totalGbPerAis;
     private double aiDurationInSecs;
     private String avgAICount;
@@ -37,11 +37,11 @@ public class OrgUsage {
         return count;
     }
 
-    public long getTotalMbPerAis() {
+    public double getTotalMbPerAis() {
 
-        long count = 0L;
+        double count = 0.0;
         if (spaceUsage != null && spaceUsage.size() > 0) {
-            count = spaceUsage.values().stream().map(o -> o.getTotalMbPerAis()).mapToLong(Long::longValue).sum();
+            count = spaceUsage.values().stream().map(o -> o.getTotalMbPerAis()).mapToDouble(Double::doubleValue).sum();
         }
         return count;
     }

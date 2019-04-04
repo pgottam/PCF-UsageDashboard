@@ -14,7 +14,7 @@ public class AUsage {
     private String spaceGuid;
     private String spaceName;
 
-    private long totalMbPerAis;
+    private double totalMbPerAis;
     private String totalGbPerAis;
     private double aiDurationInSecs;
     private String avgAICount;

@@ -18,8 +18,8 @@ public class UsageUtils {
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
-    public static long computeTotalMbPerAis(List<AppUsage_> au){
-        return au.stream().map(o-> o.getMemoryInMbPerInstance()).mapToLong(Integer::longValue).sum();
+    public static double computeTotalMbPerAis(List<AppUsage_> au){
+        return au.stream().map(o-> o.getMemoryInMbPerInstance()).mapToLong(Integer::longValue).sum() / au.size();
     }
 
     public static double computeTotalDurationInSecs(List<AppUsage_> au, long days){

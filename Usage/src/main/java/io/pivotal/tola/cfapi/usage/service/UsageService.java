@@ -158,6 +158,10 @@ public class UsageService {
 
         String result = callAppUsageApi(foundation, orgGuid, start, end).getBody();
 
+        if(LOG.isDebugEnabled()){
+            LOG.debug("JSON Response: " + result);
+        }
+
         int year = dateUtils.getYear();
         int quarter = dateUtils.getQuarter(year, dateUtils.getDayStart(start));
 
@@ -184,7 +188,6 @@ public class UsageService {
                 su.setSpaceGuid(k);
                 su.setSpaceName(v.get(0).getSpaceName());
                 su.setTotalApps(UsageUtils.getUniqueApps(v).size());
-                su.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(v));
                 su.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(v, dateUtils.getNoOfDaysElapsed(start, end)));
 
 
@@ -199,6 +202,9 @@ public class UsageService {
                         a.setAppName(av.get(0).getAppName());
                         a.setTotalMbPerAis(UsageUtils.computeTotalMbPerAis(av));
                         a.setAiDurationInSecs(UsageUtils.computeTotalDurationInSecs(av, dateUtils.getNoOfDaysElapsed(start, end)));
+
+                        su.computeTotalMbPerAis(a.getTotalMbPerAis(), a.getAiDurationInSecs());
+
                         aUsageMap.put(ak + "-" + su.getSpaceName(), a);
                     }
                 });
@@ -247,6 +253,10 @@ public class UsageService {
     public SIUsage generateSvcUsage(String foundation, String orgGuid, String start, String end) {
 
         String result = callSvcUsageApi(foundation, orgGuid, start, end).getBody();
+
+        if(LOG.isDebugEnabled()){
+            LOG.debug("JSON Response: " + result);
+        }
 
         int year = dateUtils.getYear();
         int quarter = dateUtils.getQuarter(year, dateUtils.getDayStart(start));

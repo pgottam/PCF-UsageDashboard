@@ -20,7 +20,7 @@
         <tr>
             <th>Org Name</th>
             <th>Total Apps</th>
-            <th>Total Gb per Ais</th>
+            <th>Total Approx. Used Memory (GB)</th>
             <th>Avg AI Count</th>
         </tr>
         </thead>
@@ -28,7 +28,7 @@
         <tr>
             <td th:text="${orgName}">Org Name</td>
             <td th:text="${orgAppUsage.totalApps}">Total Apps</td>
-            <td th:text="${orgAppUsage.totalGbPerAis}">Total Gb per Ais</td>
+            <td th:text="${orgAppUsage.totalGbPerAis}">Total Approx. Used Memory (GB)</td>
             <td th:text="${orgAppUsage.avgAICount}">Avg AI Count</td>
         </tr>
         </tbody>
@@ -38,9 +38,9 @@
     <table id="spaceUsageTable" class="table table-striped table-bordered table-sm">
     <thead class="thead-dark">
         <tr>
-            <th>Space Name </th>
+            <th>Space Name</th>
             <th>Total Apps</th>
-            <th>Total Gb per Ais</th>
+            <th>Total Approx. Used Memory (GB) </th>
             <th>Avg AI Count</th>
         </tr>
         </thead>
@@ -48,7 +48,7 @@
         <tr th:each="spaceUsageEntry: ${orgAppUsage.spaceUsage}">
             <td th:text="${spaceUsageEntry.value.spaceName}">Space Name</td>
             <td th:text="${spaceUsageEntry.value.totalApps}">Total Apps</td>
-            <td th:text="${spaceUsageEntry.value.totalGbPerAis}">Total Gb per Ais</td>
+            <td th:text="${spaceUsageEntry.value.totalGbPerAis}">Total Approx. Used Memory (GB)</td>
             <td th:text="${spaceUsageEntry.value.avgAICount}">Avg AI Count</td>
         </tr>
         </tbody>
@@ -60,7 +60,7 @@
         <tr>
             <th>App Name </th>
             <th>Space Name</th>
-            <th>Total Gb per Ais</th>
+            <th>Memory (GB) per AI</th>
             <th>Avg AI Count</th>
         </tr>
         </thead>
@@ -68,7 +68,7 @@
             <tr th:each="auEntry: ${orgAppUsage.aUsage}">
                 <td th:text="${auEntry.value.appName}">App Name</td>
                 <td th:text="${auEntry.value.spaceName}">Space Name</td>
-                <td th:text="${auEntry.value.totalGbPerAis}">Total Gb per Ais</td>
+                <td th:text="${auEntry.value.totalGbPerAis}">Memory (GB) per AI</td>
                 <td th:text="${auEntry.value.avgAICount}">Avg AI Count</td>
             </tr>
 

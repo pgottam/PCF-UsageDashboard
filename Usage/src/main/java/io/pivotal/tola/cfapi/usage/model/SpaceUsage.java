@@ -13,7 +13,7 @@ public class SpaceUsage {
     private String spaceName;
 
     private long totalApps;
-    private long totalMbPerAis;
+    private double totalMbPerAis = 0.0;
     private String totalGbPerAis;
     private double aiDurationInSecs;
     private String avgAICount;
@@ -30,6 +30,14 @@ public class SpaceUsage {
         DecimalFormat df = new DecimalFormat("#.###");
         return df.format( (double)this.getTotalMbPerAis() / 1024);
 
+    }
+
+    public void computeTotalMbPerAis(double memory, double avgAI){
+
+        if(avgAI < 1.0){
+            avgAI = 1.0;
+        }
+        this.totalMbPerAis = this.totalMbPerAis + (memory * avgAI);
     }
 
 }
