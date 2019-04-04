@@ -2,6 +2,7 @@ package io.pivotal.tola.cfapi.usage.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class DateUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(DateUtils.class);
