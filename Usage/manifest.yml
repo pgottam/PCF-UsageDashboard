@@ -5,7 +5,7 @@ applications:
   routes:
     - route: usage-backend.cfapps.io
   memory: 768M
-  path: target/usage-0.0.1-SNAPSHOT.jar
+  path: target/Usage-0.0.1-SNAPSHOT.jar
   timeout: 90
   env:
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
