@@ -33,7 +33,7 @@ public class FoundationsConfig {
 
 	private List<String> excludedOrgs = new ArrayList<>();
 
-	private List<String> excludedServices = new ArrayList<>();
+	private List<String> includedServices = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {

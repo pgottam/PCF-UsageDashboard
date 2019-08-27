@@ -1,0 +1,8 @@
+Usage/.idea/**
+Usage/target/**
+Usage/*.iml
+
+*.json
+*.iml
+.idea/**
+target/**

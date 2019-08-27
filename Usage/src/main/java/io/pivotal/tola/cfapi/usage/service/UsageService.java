@@ -275,7 +275,7 @@ public class UsageService {
 
         //Service instances per space calculation
         Map<String, List<ServiceUsage_>> siSpaceMap = serviceUsage.getServiceUsages().stream()
-                .filter(su -> !config.getExcludedServices().contains(su.getServiceName()))
+                .filter(su -> config.getIncludedServices().contains(su.getServiceName()))
                 .collect(Collectors.groupingBy(ServiceUsage_::getSpaceGuid));
         Map<String, SISpaceUsage> siSpaceUsageMap = new HashMap<>();
         Map<String, ServiceInstanceUsage> serviceInstanceUsageMap = new HashMap<>();
